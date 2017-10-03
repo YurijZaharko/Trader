@@ -58,6 +58,11 @@ public class MainController {
         return "redirect:/";
     }
 
+    @GetMapping("/admin")
+    public String admin(){
+        return "admin";
+    }
+
     @Autowired
     public void setTraderUserService(TraderUserService traderUserService) {
         this.traderUserService = traderUserService;

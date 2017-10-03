@@ -1,10 +1,11 @@
 package project.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class VerificationToken {
+public class VerificationToken implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

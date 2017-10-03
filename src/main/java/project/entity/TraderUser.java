@@ -126,14 +126,11 @@ public class TraderUser implements UserDetails {
 
         TraderUser that = (TraderUser) o;
 
-        if (!username.equals(that.username)) return false;
-        return nickName != null ? nickName.equals(that.nickName) : that.nickName == null;
+        return username.equals(that.username);
     }
 
     @Override
     public int hashCode() {
-        int result = username.hashCode();
-        result = 31 * result + (nickName != null ? nickName.hashCode() : 0);
-        return result;
+        return username.hashCode();
     }
 }

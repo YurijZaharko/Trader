@@ -50,7 +50,7 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
             traderUser.setId(1L);
             traderUser.setUsername("scipgames@gmail.com");
             traderUser.setNickName("Scip");
-            traderUser.setRole(Role.ADMIN_USER);
+            traderUser.setRole(Role.ROLE_ADMIN);
             traderUser.setEnabled(true);
             traderUser.setPassword(bCryptPasswordEncoder.encode("nimda"));
             traderUser.setAccountNonLocked(true);
@@ -61,7 +61,7 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
     @Override
     public void saveRegistrationForm(RegistrationForm registrationForm) {
         TraderUser traderUser = registrationFormPopulator.convertFormUser(registrationForm);
-        traderUser.setRole(Role.UNACTIVATED_USER);
+        traderUser.setRole(Role.ROLE_UNACTIVATED_USER);
         traderUser.setAccountNonLocked(true);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD HH-mm-ss");
