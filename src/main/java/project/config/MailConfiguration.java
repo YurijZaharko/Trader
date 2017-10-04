@@ -1,4 +1,4 @@
-package project.service.implementation;//package project.service.implementation;
+package project.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
