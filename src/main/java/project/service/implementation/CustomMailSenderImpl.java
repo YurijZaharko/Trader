@@ -3,6 +3,7 @@ package project.service.implementation;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Async;
 import project.service.MailService;
 
 
@@ -22,6 +23,7 @@ public class CustomMailSenderImpl implements MailService {
         send(simpleMailMessage);
     }
 
+    @Async
     @Override
     public void sendEmail(String to, String subject, String text) {
         SimpleMailMessage simpleMailMessage = init(subject, text);

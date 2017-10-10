@@ -1,5 +1,5 @@
 package project.entity.packageName;
 
 public enum FolderName {
-    TEXT_TEMPLATE
+    TEXT_TEMPLATE, USER_FILES
 }

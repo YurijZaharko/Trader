@@ -6,18 +6,23 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import project.entity.TemplateLink;
 import project.entity.TraderUser;
 import project.entity.VerificationToken;
 import project.entity.role.Role;
 import project.events.eventPublisher.SendVerificationPublisher;
 import project.form.RegistrationForm;
 import project.form.populator.RegistrationFormPopulator;
+import project.repository.TemplateLinkRepository;
 import project.repository.TraderUserRepository;
 import project.repository.VerificationTokenRepository;
+import project.service.StringFileReader;
 import project.service.TraderUserService;
 import project.service.VerificationTokenService;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,16 +31,14 @@ import java.util.Date;
 public class TraderUserServiceImpl implements TraderUserService, UserDetailsService {
 
     private TraderUserRepository traderUserRepository;
-
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     private RegistrationFormPopulator registrationFormPopulator;
-
     private VerificationTokenRepository verificationTokenRepository;
-
     private VerificationTokenService verificationTokenService;
-
     private SendVerificationPublisher sendVerificationPublisher;
+    private TemplateLinkRepository templateLinkRepository;
+    private StringFileReader stringFileReader;
+    private File templateDirectory;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -79,9 +82,7 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
         traderUser.setVerificationToken(verificationToken);
         traderUserRepository.save(traderUser);
 
-
         sendVerificationPublisher.publish(verificationKey, registrationForm.getEmail());
-
     }
 
     private Date generateExpirationDate(Date date, int expireInHours) {
@@ -97,7 +98,20 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
     public void sendActivationURL(RegistrationForm registrationForm) {
         String userName = registrationForm.getEmail();
         TraderUser traderUser = traderUserRepository.findByUsername(userName);
+    }
 
+    @Override
+    public String findHelpPage(String linkName) {
+        TemplateLink templateLink = templateLinkRepository.findByLinkName(linkName);
+        String templateName = templateLink.getTemplateName();
+        String content = null;
+        String extension = ".txt";
+        try {
+            content = stringFileReader.readFromFile(templateDirectory, templateName + extension);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content;
     }
 
     @Autowired
@@ -128,5 +142,20 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
     @Autowired
     public void setSendVerificationPublisher(SendVerificationPublisher sendVerificationPublisher) {
         this.sendVerificationPublisher = sendVerificationPublisher;
+    }
+
+    @Autowired
+    public void setTemplateLinkRepository(TemplateLinkRepository templateLinkRepository) {
+        this.templateLinkRepository = templateLinkRepository;
+    }
+
+    @Autowired
+    public void setStringFileReader(StringFileReader stringFileReader) {
+        this.stringFileReader = stringFileReader;
+    }
+
+    @Autowired
+    public void setTemplateDirectory(File templateDirectory) {
+        this.templateDirectory = templateDirectory;
     }
 }

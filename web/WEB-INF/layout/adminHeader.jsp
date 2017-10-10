@@ -10,25 +10,22 @@
 
 
 <nav class="navbar navbar-default">
-    <div class="container-fluid">
-
+    <div class="container">
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help menu<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/faq">FAQ</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">Link</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
+                        <li><a href="#">Link</a></li>
                     </ul>
                 </li>
             </ul>
-
-
         </div>
     </div>
 </nav>

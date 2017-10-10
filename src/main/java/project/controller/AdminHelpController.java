@@ -2,10 +2,8 @@ package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import project.form.TextForm;
 import project.service.HelpService;
 
@@ -15,7 +13,17 @@ public class AdminHelpController {
     private HelpService helpService;
 
     @GetMapping(value = "/faq")
-    public String getFaq(){
+    public String getFaq(Model model){
+        model.addAttribute("listFiles", helpService.getListOfTemplate());
+        return "faq";
+    }
+
+    @GetMapping(value = "/showFile/{fileName}")
+    public String showFile(Model model,
+                           @ModelAttribute(value = "textForm") TextForm textForm,
+                           @PathVariable("fileName") String fileName){
+        model.addAttribute("textForm", helpService.showFile(fileName, textForm));
+        model.addAttribute("listFiles", helpService.getListOfTemplate());
         return "faq";
     }
 

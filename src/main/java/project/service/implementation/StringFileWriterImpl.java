@@ -1,29 +1,26 @@
 package project.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import project.entity.packageName.FolderName;
 import project.service.StringFileWriter;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 @Service
 public class StringFileWriterImpl implements StringFileWriter {
 
+    private File templateDirectory;
 
     @Override
-    public void writeFile(String filename, String text, FolderName textTemplate) {
-        File homePath = getHomeDirectory();
+    public void writeFile(String filename, String text) {
         String fileExtension = ".txt";
         FileOutputStream fileOutputStream = null;
 
-        File file1 = new File(homePath, String.valueOf(textTemplate));
-        if (!file1.exists()){
-            file1.mkdir();
-        }
-
-        File file = new File(file1, filename + fileExtension);
+        File file = new File(templateDirectory, filename + fileExtension);
         byte[] bytes = text.getBytes();
-        if (!file.exists()){
+        if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
@@ -37,8 +34,8 @@ public class StringFileWriterImpl implements StringFileWriter {
             fileOutputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            if (fileOutputStream != null){
+        } finally {
+            if (fileOutputStream != null) {
                 try {
                     fileOutputStream.close();
                 } catch (IOException e) {
@@ -48,8 +45,8 @@ public class StringFileWriterImpl implements StringFileWriter {
         }
     }
 
-    private File getHomeDirectory(){
-        String property = System.getProperty("catalina.home");
-        return new File(property);
+    @Autowired
+    public void setTemplateDirectory(File templateDirectory) {
+        this.templateDirectory = templateDirectory;
     }
 }
