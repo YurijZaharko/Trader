@@ -1,13 +1,13 @@
 package project.entity;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class GameAdditions {
     private Long id;
-    private String serviceName;
-    private Set<GameType> gameTypes;
+    private String gameAdditionsName;
+    private List<GameType> gameTypes;
 
     @Id
     public Long getId() {
@@ -18,23 +18,23 @@ public class GameAdditions {
         this.id = id;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public String getGameAdditionsName() {
+        return gameAdditionsName;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setGameAdditionsName(String gameAdditionsName) {
+        this.gameAdditionsName = gameAdditionsName;
     }
 
     @ManyToMany
     @JoinTable(name = "GameType_GameAdditions", joinColumns =
     @JoinColumn(name = "fk_GameAdditions"), inverseJoinColumns =
     @JoinColumn(name = "fk_GameType"))
-    public Set<GameType> getGameTypes() {
+    public List<GameType> getGameTypes() {
         return gameTypes;
     }
 
-    public void setGameTypes(Set<GameType> gameTypes) {
+    public void setGameTypes(List<GameType> gameTypes) {
         this.gameTypes = gameTypes;
     }
 
@@ -45,11 +45,11 @@ public class GameAdditions {
 
         GameAdditions that = (GameAdditions) o;
 
-        return serviceName.equals(that.serviceName);
+        return gameAdditionsName.equals(that.gameAdditionsName);
     }
 
     @Override
     public int hashCode() {
-        return serviceName.hashCode();
+        return gameAdditionsName.hashCode();
     }
 }

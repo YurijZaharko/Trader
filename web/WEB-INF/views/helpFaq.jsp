@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
-                <form:form action="/save" modelAttribute="textForm" method="post">
+                <form:form action="/admin/save" modelAttribute="textForm" method="post">
                     <div class="form-group">
                         <form:errors id="templateName"/>
                         <form:label path="templateName">Template name</form:label>
@@ -39,8 +39,8 @@
                     <c:forEach items="${listFiles}" var="fileName">
                         <tr>
                             <td>${fileName}</td>
-                            <td><a href="/showFile/${fileName}" class="btn btn-info">Show file</a></td>
-                            <td><a href="/deleteFile/${fileName}" class="btn btn-danger">Delete file</a></td>
+                            <td><a href="/admin/showFile/${fileName}" class="btn btn-info">Show file</a></td>
+                            <td><a href="/admin/deleteFile/${fileName}" class="btn btn-danger">Delete file</a></td>
                         </tr>
 
                     </c:forEach>

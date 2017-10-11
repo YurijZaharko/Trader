@@ -62,10 +62,7 @@ public class MainController {
         return "help";
     }
 
-    @GetMapping("/admin")
-    public String admin(){
-        return "admin";
-    }
+
 
     @Autowired
     public void setTraderUserService(TraderUserService traderUserService) {
