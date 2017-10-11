@@ -2,7 +2,7 @@ package project.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import project.entity.packageName.FolderName;
+import project.entity.enumtype.FolderName;
 
 import java.io.File;
 

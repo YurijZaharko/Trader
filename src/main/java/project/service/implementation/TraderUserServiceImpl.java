@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import project.entity.TemplateLink;
 import project.entity.TraderUser;
 import project.entity.VerificationToken;
-import project.entity.role.Role;
+import project.entity.enumtype.Role;
 import project.events.eventPublisher.SendVerificationPublisher;
 import project.form.RegistrationForm;
 import project.form.populator.RegistrationFormPopulator;

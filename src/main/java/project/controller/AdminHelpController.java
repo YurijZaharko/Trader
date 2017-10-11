@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import project.form.TextForm;
 import project.service.HelpService;
 
-@Controller(value = "/admin/help")
+@Controller(value = "/admin")
 public class AdminHelpController {
 
     private HelpService helpService;
 
-    @GetMapping(value = "/faq")
+    @GetMapping(value = "/help/faq")
     public String getFaq(Model model){
         model.addAttribute("listFiles", helpService.getListOfTemplate());
         return "faq";
@@ -36,6 +36,11 @@ public class AdminHelpController {
     public String saveTemplate(@ModelAttribute(value = "textForm") TextForm textForm){
         helpService.saveTextFormToFile(textForm);
         return "redirect:/faq";
+    }
+
+    @GetMapping(name = "/setup")
+    public String getSetup(){
+        return "setup";
     }
 
     @Autowired

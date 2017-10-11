@@ -48,4 +48,10 @@
         <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp"/>
     </definition>
 
+    <definition name="setup" extends="common">
+        <put-attribute name="title" value="Setup"/>
+        <put-attribute name="header" value="/WEB-INF/layout/adminHeader.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/setup.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp"/>
+    </definition>
 </tiles-definitions>

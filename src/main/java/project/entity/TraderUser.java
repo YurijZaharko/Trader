@@ -3,7 +3,7 @@ package project.entity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import project.entity.role.Role;
+import project.entity.enumtype.Role;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,33 +12,33 @@ import java.util.List;
 
 @Entity
 public class TraderUser implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    private String username;
-
-    private String password;
-
-    private String nickName;
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "traderUser")
     private VerificationToken verificationToken;
-
+    private String username;
+    private String password;
+    private String nickName;
     private boolean accountNonLocked = true;
-
     private boolean enabled = false;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -95,14 +95,6 @@ public class TraderUser implements UserDetails {
         this.enabled = enabled;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public String getNickName() {
         return nickName;
     }
@@ -111,6 +103,7 @@ public class TraderUser implements UserDetails {
         this.nickName = nickName;
     }
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "traderUser")
     public VerificationToken getVerificationToken() {
         return verificationToken;
     }
@@ -123,9 +116,7 @@ public class TraderUser implements UserDetails {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TraderUser)) return false;
-
         TraderUser that = (TraderUser) o;
-
         return username.equals(that.username);
     }
 
