@@ -2,13 +2,13 @@ package project.form;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Set;
+import java.util.List;
 
 public class GameTypeForm {
     private Long id;
     private String gameName;
-    private Set<Integer> countries;
-    private Set<Integer> gameAdditions;
+    private List<Long> countries;
+    private List<Long> gameAdditions;
     private MultipartFile multipartFile;
 
     public Long getId() {
@@ -27,19 +27,19 @@ public class GameTypeForm {
         this.gameName = gameName;
     }
 
-    public Set<Integer> getCountries() {
+    public List<Long> getCountries() {
         return countries;
     }
 
-    public void setCountries(Set<Integer> countries) {
+    public void setCountries(List<Long> countries) {
         this.countries = countries;
     }
 
-    public Set<Integer> getGameAdditions() {
+    public List<Long> getGameAdditions() {
         return gameAdditions;
     }
 
-    public void setGameAdditions(Set<Integer> gameAdditions) {
+    public void setGameAdditions(List<Long> gameAdditions) {
         this.gameAdditions = gameAdditions;
     }
 

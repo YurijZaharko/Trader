@@ -87,9 +87,15 @@
     </bean>
     <import resource="security.xml"/>
 
+    <!--populators-->
+
     <bean id="registrationFormPopulator" class="project.form.populator.RegistrationFormPopulator">
         <property name="bCryptPasswordEncoder" ref="encoder"/>
     </bean>
+
+    <bean id="gameAdditionsFormPopulator" class="project.form.populator.GameAdditionsFormPopulator"/>
+
+    <bean id="gameTypeFormPopulator" class="project.form.populator.GameTypeFormPopulator"/>
 
     <!--Events-->
     <bean id="sendVerificationPublisher" class="project.events.eventPublisher.SendVerificationPublisher"/>

@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
-                <form:form action="/admin/save" modelAttribute="textForm" method="post">
+                <form:form action="/admin/faq/save" modelAttribute="textForm" method="post">
                     <div class="form-group">
                         <form:errors id="templateName"/>
                         <form:label path="templateName">Template name</form:label>

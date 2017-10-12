@@ -34,4 +34,14 @@ public class PathConfiguration {
         }
         return userFolder;
     }
+
+    @Bean
+    public File getImageDirectory(){
+        File homeDirectory = getHomeDirectory();
+        File imageDirectory = new File(homeDirectory, String.valueOf(FolderName.IMAGE));
+        if (!imageDirectory.exists()){
+            imageDirectory.mkdir();
+        }
+        return imageDirectory;
+    }
 }

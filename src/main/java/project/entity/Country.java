@@ -10,6 +10,9 @@ public class Country {
     private String shortName;
     private String fullName;
 
+    public Country() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {

@@ -11,6 +11,9 @@ public class VerificationToken implements Serializable {
     private Date expirationDate;
     private String verificationKey;
 
+    public VerificationToken() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {

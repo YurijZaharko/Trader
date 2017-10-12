@@ -11,6 +11,9 @@ public class TemplateLink {
     private String linkName;
     private String templateName;
 
+    public TemplateLink() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {

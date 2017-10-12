@@ -24,11 +24,10 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="gameType">
-
             <p class="text-center bg-primary"><strong>Game setup</strong></p>
             <div class="row">
                 <div class="col-md-6">
-                    <form:form action="admin/gameType/save" method="post" modelAttribute="gameTypeForm" enctype="multipart/form-data">
+                    <form:form action="/admin/setup" method="post" modelAttribute="gameTypeForm" enctype="multipart/form-data">
                         <form class="form-inline">
                             <div class="form-group">
                                 <form:hidden path="id"/>
@@ -57,7 +56,7 @@
                             <div class="form-group">
                                 <label for="gameAdditionsName">Game additions</label>
                                 <div class="col-md-9">
-                                    <form:checkboxes path="gameAdditions" items="${gameAdditions}"
+                                    <form:checkboxes path="gameAdditions" items="${gameAdditionsList}"
                                                      itemValue="id"
                                                      itemLabel="gameAdditionsName"
                                                      id="gameAdditionsName"/>
@@ -66,7 +65,8 @@
                         </form>
                         <form class="form-inline">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-info">Save</button>
+                                <%--<button type="submit" class="btn btn-info">Save</button>--%>
+                                    <input type="submit" class="btn btn-primary" value="Save">
                             </div>
                         </form>
                     </form:form>
@@ -100,7 +100,53 @@
                 </div>
             </div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="gameAdditions">...</div>
+        <div role="tabpanel" class="tab-pane" id="gameAdditions">
+            <p class="text-center bg-primary"><strong>Game services</strong></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <form:form  action="admin/gameAdditions/save" method="post" modelAttribute="gameAdditionsForm">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label for="gameAdditionsName">Game additions name</label>
+                                <form:hidden path="gameAdditionsId"/>
+                                <form:input path="gameAdditionsName" id="gameAdditionsName"/>
+                            </div>
+                        </div>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-info">Save</button>
+                            </div>
+                        </form>
+                    </form:form>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <table class="table">
+                            <tr>
+                                <th>Game service name</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            <c:forEach items="${gameAdditions.content}" var="addition">
+                                <tr>
+                                    <td>${addition.gameName}</td>
+                                    <td><a href="admin/gameAdditions/edit/${addition.id}" class="btn btn-info">Edit</a></td>
+                                    <td><a href="admin/gameAdditions/delete/${addition.id}" class="btn btn-danger">Delete</a></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+
+                        <div class="col-md-offset-5 col-md-2">
+                            <custom:size posibleSizes="1,2,5,10" size="${gameAdditions.size}" title="Page size"/>
+                        </div>
+                        <div class="col-md-offset-4 col-md-4 ">
+                            <custom:pageable page="${gameAdditions}" cell="<li></li>" container="<ul class='pagination'></ul>" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         <div role="tabpanel" class="tab-pane" id="countries">...</div>
         <div role="tabpanel" class="tab-pane" id="settings">...</div>
     </div>

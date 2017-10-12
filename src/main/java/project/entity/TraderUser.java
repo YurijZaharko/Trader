@@ -25,6 +25,9 @@ public class TraderUser implements UserDetails {
     private boolean accountNonLocked = true;
     private boolean enabled = false;
 
+    public TraderUser() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -9,6 +9,10 @@ public class GameType {
     private List<Country> countries;
     private List<GameAdditions> gameAdditions;
     private String gameName;
+    private String imageExtension;
+
+    public GameType() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,6 +54,14 @@ public class GameType {
 
     public void setGameAdditions(List<GameAdditions> gameAdditions) {
         this.gameAdditions = gameAdditions;
+    }
+
+    public String getImageExtension() {
+        return imageExtension;
+    }
+
+    public void setImageExtension(String imageExtension) {
+        this.imageExtension = imageExtension;
     }
 
     @Override

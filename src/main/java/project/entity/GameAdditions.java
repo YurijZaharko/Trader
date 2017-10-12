@@ -9,6 +9,9 @@ public class GameAdditions {
     private String gameAdditionsName;
     private List<GameType> gameTypes;
 
+    public GameAdditions() {
+    }
+
     @Id
     public Long getId() {
         return id;
