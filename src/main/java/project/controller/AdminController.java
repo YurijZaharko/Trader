@@ -53,7 +53,7 @@ public class AdminController {
     @RequestMapping(value = "/admin/save", method = RequestMethod.POST)
     public String saveTemplate(@ModelAttribute(value = "textForm") TextForm textForm) {
         helpService.saveTextFormToFile(textForm);
-        return "redirect:/faq";
+        return "redirect:admin/help/faq";
     }
 
     @GetMapping(name = "/admin/setup")
