@@ -10,7 +10,11 @@ import java.util.List;
 public interface GameAdditionsService {
     List<GameAdditions> findAll();
 
-    GameAdditionsForm findForForm(Long id);
-
     Page<GameAdditions> findAll(Pageable pageable);
+
+    void save(GameAdditionsForm gameAdditionsForm);
+
+    GameAdditions findOne(Long id);
+
+    GameAdditions findByGameAdditionsName(String text);
 }

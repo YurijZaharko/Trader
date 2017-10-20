@@ -37,8 +37,19 @@ public class GameTypeServiceImpl implements GameTypeService {
         gameTypeRepository.save(gameType);
     }
 
+    @Override
+    public void deleteById(Long id) {
+        gameTypeRepository.delete(id);
+    }
+
+    @Override
+    public GameTypeForm findForForm(Long id) {
+        GameType one = gameTypeRepository.findOneFetchAll(id);
+        return gameTypeFormPopulator.convertEntityForm(one);
+    }
+
     private String saveMultipartFile(MultipartFile multipartFile, Long id) {
-        if (!multipartFile.isEmpty()) {
+        if (multipartFile != null && !multipartFile.isEmpty()) {
             File imageDirectory = pathConfiguration.getImageDirectory();
             String originalFilename = multipartFile.getOriginalFilename();
             int indexOfDot = originalFilename.lastIndexOf('.');

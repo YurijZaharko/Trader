@@ -1,13 +1,13 @@
 package project.entity;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class GameType {
     private Long id;
-    private List<Country> countries;
-    private List<GameAdditions> gameAdditions;
+    private Set<Country> countries;
+    private Set<GameAdditions> gameAdditions;
     private String gameName;
     private String imageExtension;
 
@@ -36,11 +36,11 @@ public class GameType {
     @JoinTable(name = "GameType_Country", joinColumns =
     @JoinColumn(name = "fk_Country"), inverseJoinColumns =
     @JoinColumn(name = "fk_GameType"))
-    public List<Country> getCountries() {
+    public Set<Country> getCountries() {
         return countries;
     }
 
-    public void setCountries(List<Country> countries) {
+    public void setCountries(Set<Country> countries) {
         this.countries = countries;
     }
 
@@ -48,11 +48,11 @@ public class GameType {
     @JoinTable(name = "GameType_GameAdditions", joinColumns =
     @JoinColumn(name = "fk_Country"), inverseJoinColumns =
     @JoinColumn(name = "fk_GameAdditions"))
-    public List<GameAdditions> getGameAdditions() {
+    public Set<GameAdditions> getGameAdditions() {
         return gameAdditions;
     }
 
-    public void setGameAdditions(List<GameAdditions> gameAdditions) {
+    public void setGameAdditions(Set<GameAdditions> gameAdditions) {
         this.gameAdditions = gameAdditions;
     }
 

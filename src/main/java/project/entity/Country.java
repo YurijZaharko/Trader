@@ -1,12 +1,12 @@
 package project.entity;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Country {
     private Long id;
-    private List<GameType> gameTypes;
+    private Set<GameType> gameTypes;
     private String shortName;
     private String fullName;
 
@@ -43,11 +43,11 @@ public class Country {
     @JoinTable(name = "GameType_Country", joinColumns =
     @JoinColumn(name = "fk_GameType"), inverseJoinColumns =
     @JoinColumn(name = "fk_Country"))
-    public List<GameType> getGameTypes() {
+    public Set<GameType> getGameTypes() {
         return gameTypes;
     }
 
-    public void setGameTypes(List<GameType> gameTypes) {
+    public void setGameTypes(Set<GameType> gameTypes) {
         this.gameTypes = gameTypes;
     }
 

@@ -9,4 +9,8 @@ public interface GameTypeService {
     Page<GameType> findAll(Pageable pageable);
 
     void saveGameTypeForm(GameTypeForm gameTypeForm);
+
+    void deleteById(Long id);
+
+    GameTypeForm findForForm(Long id);
 }

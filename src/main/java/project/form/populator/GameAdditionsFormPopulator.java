@@ -13,4 +13,16 @@ public class GameAdditionsFormPopulator {
         gameAdditionsForm.setGameAdditionsName(gameAdditionsName);
         return gameAdditionsForm;
     }
+
+    public GameAdditions convertFormEntity(GameAdditionsForm gameAdditionsForm) {
+        GameAdditions gameAdditions = new GameAdditions();
+        Long gameAdditionsId = gameAdditionsForm.getGameAdditionsId();
+        String gameAdditionsName = gameAdditionsForm.getGameAdditionsName();
+
+        if (gameAdditionsId != null){
+            gameAdditions.setId(gameAdditionsId);
+        }
+        gameAdditions.setGameAdditionsName(gameAdditionsName);
+        return gameAdditions;
+    }
 }

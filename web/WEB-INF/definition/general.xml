@@ -54,4 +54,11 @@
         <put-attribute name="body" value="/WEB-INF/views/setup.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp"/>
     </definition>
+
+    <definition name="testJsp" extends="common">
+        <put-attribute name="title" value="Test"/>
+        <put-attribute name="header" value="/WEB-INF/layout/adminHeader.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/testJsp.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp"/>
+    </definition>
 </tiles-definitions>

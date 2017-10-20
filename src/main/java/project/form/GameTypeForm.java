@@ -7,8 +7,8 @@ import java.util.List;
 public class GameTypeForm {
     private Long id;
     private String gameName;
-    private List<Long> countries;
-    private List<Long> gameAdditions;
+    private List<Long> countriesId;
+    private List<Long> gameAdditionsId;
     private MultipartFile multipartFile;
 
     public Long getId() {
@@ -27,20 +27,20 @@ public class GameTypeForm {
         this.gameName = gameName;
     }
 
-    public List<Long> getCountries() {
-        return countries;
+    public List<Long> getCountriesId() {
+        return countriesId;
     }
 
-    public void setCountries(List<Long> countries) {
-        this.countries = countries;
+    public void setCountriesId(List<Long> countriesId) {
+        this.countriesId = countriesId;
     }
 
-    public List<Long> getGameAdditions() {
-        return gameAdditions;
+    public List<Long> getGameAdditionsId() {
+        return gameAdditionsId;
     }
 
-    public void setGameAdditions(List<Long> gameAdditions) {
-        this.gameAdditions = gameAdditions;
+    public void setGameAdditionsId(List<Long> gameAdditionsId) {
+        this.gameAdditionsId = gameAdditionsId;
     }
 
     public MultipartFile getMultipartFile() {

@@ -7,12 +7,16 @@ import project.entity.GameType;
 import project.form.GameTypeForm;
 import project.repository.CountryRepository;
 import project.repository.GameAdditionsRepository;
+import project.repository.GameTypeRepository;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GameTypeFormPopulator {
     private GameAdditionsRepository gameAdditionsRepository;
     private CountryRepository countryRepository;
+    private GameTypeRepository gameTypeRepository;
 
     public GameType convertFormEntity(GameTypeForm gameTypeForm) {
         GameType gameType = new GameType();
@@ -25,19 +29,45 @@ public class GameTypeFormPopulator {
         String gameName = gameTypeForm.getGameName();
         gameType.setGameName(gameName);
 
-        List<Long> countries = gameTypeForm.getCountries();
+        List<Long> countries = gameTypeForm.getCountriesId();
         if (countries != null) {
-            List<Country> countryList = countryRepository.findByIdIn(countries);
+            Set<Country> countryList = countryRepository.findByIdIn(countries);
             gameType.setCountries(countryList);
         }
 
-        List<Long> gameAdditions = gameTypeForm.getGameAdditions();
-        if (gameAdditions != null){
-            List<GameAdditions> gameAdditionsList = gameAdditionsRepository.findByIdIn(gameAdditions);
+        List<Long> gameAdditions = gameTypeForm.getGameAdditionsId();
+        if (gameAdditions != null) {
+            Set<GameAdditions> gameAdditionsList = gameAdditionsRepository.findByIdIn(gameAdditions);
             gameType.setGameAdditions(gameAdditionsList);
         }
 
         return gameType;
+    }
+
+    public GameTypeForm convertEntityForm(GameType one) {
+        GameTypeForm gameTypeForm = new GameTypeForm();
+        Long id = one.getId();
+        String gameName = one.getGameName();
+        Set<Country> countries = one.getCountries();
+        Set<GameAdditions> gameAdditions = one.getGameAdditions();
+
+        gameTypeForm.setId(id);
+        gameTypeForm.setGameName(gameName);
+        if (countries != null){
+            List<Long> countriesId = countries.stream().map(Country::getId).collect(Collectors.toList());
+            gameTypeForm.setCountriesId(countriesId);
+        }
+
+        if (gameAdditions != null){
+            List<Long> gameAdditionsId = gameAdditions.stream().map(GameAdditions::getId).collect(Collectors.toList());
+            gameTypeForm.setGameAdditionsId(gameAdditionsId);
+        }
+        return gameTypeForm;
+    }
+
+    @Autowired
+    public void setGameTypeRepository(GameTypeRepository gameTypeRepository) {
+        this.gameTypeRepository = gameTypeRepository;
     }
 
     @Autowired

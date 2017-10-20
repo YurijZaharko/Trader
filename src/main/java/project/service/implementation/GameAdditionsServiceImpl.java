@@ -24,14 +24,24 @@ public class GameAdditionsServiceImpl implements GameAdditionsService {
     }
 
     @Override
-    public GameAdditionsForm findForForm(Long id) {
-        GameAdditions one = gameAdditionsRepository.findOne(id);
-        return gameAdditionsFormPopulator.convertEntityForm(one);
+    public Page<GameAdditions> findAll(Pageable pageable) {
+        return gameAdditionsRepository.findAll(pageable);
     }
 
     @Override
-    public Page<GameAdditions> findAll(Pageable pageable) {
-        return gameAdditionsRepository.findAll(pageable);
+    public void save(GameAdditionsForm gameAdditionsForm) {
+        GameAdditions gameAdditions = gameAdditionsFormPopulator.convertFormEntity(gameAdditionsForm);
+        gameAdditionsRepository.save(gameAdditions);
+    }
+
+    @Override
+    public GameAdditions findOne(Long id) {
+        return gameAdditionsRepository.findOne(id);
+    }
+
+    @Override
+    public GameAdditions findByGameAdditionsName(String text) {
+        return gameAdditionsRepository.findByGameAdditionsName(text);
     }
 
     @Autowired

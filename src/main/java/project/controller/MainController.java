@@ -45,8 +45,7 @@ public class MainController {
     }
 
     @PostMapping("/registration")
-    public String saveRegistrationData(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
-                                       BindingResult bindingResult) {
+    public String saveRegistrationData(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             registrationForm.setPassword("");
             registrationForm.setPasswordRepeat("");
