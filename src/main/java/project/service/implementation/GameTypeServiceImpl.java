@@ -6,20 +6,28 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import project.config.PathConfiguration;
+import project.entity.Country;
+import project.entity.GameAdditions;
 import project.entity.GameType;
 import project.form.GameTypeForm;
 import project.form.populator.GameTypeFormPopulator;
+import project.repository.CountryRepository;
+import project.repository.GameAdditionsRepository;
 import project.repository.GameTypeRepository;
 import project.service.GameTypeService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class GameTypeServiceImpl implements GameTypeService {
     private GameTypeRepository gameTypeRepository;
     private GameTypeFormPopulator gameTypeFormPopulator;
     private PathConfiguration pathConfiguration;
+    private GameAdditionsRepository gameAdditionsRepository;
+    private CountryRepository countryRepository;
 
     @Override
     public Page<GameType> findAll(Pageable pageable) {
@@ -31,6 +39,17 @@ public class GameTypeServiceImpl implements GameTypeService {
         GameType gameType = gameTypeFormPopulator.convertFormEntity(gameTypeForm);
         Long id = gameTypeForm.getId();
         MultipartFile multipartFile = gameTypeForm.getMultipartFile();
+        List<Long> gameAdditionsId = gameTypeForm.getGameAdditionsId();
+        List<Long> countriesId = gameTypeForm.getCountriesId();
+
+        if (gameAdditionsId != null && !gameAdditionsId.isEmpty()){
+            Set<GameAdditions> byIdIn = gameAdditionsRepository.findByIdIn(gameAdditionsId);
+            gameType.setGameAdditions(byIdIn);
+        }
+        if (countriesId != null && !countriesId.isEmpty()){
+            Set<Country> byIdIn = countryRepository.findByIdIn(countriesId);
+            gameType.setCountries(byIdIn);
+        }
 
         String fileExtension = saveMultipartFile(multipartFile, id);
         gameType.setImageExtension(fileExtension);
@@ -81,5 +100,15 @@ public class GameTypeServiceImpl implements GameTypeService {
     @Autowired
     public void setGameTypeRepository(GameTypeRepository gameTypeRepository) {
         this.gameTypeRepository = gameTypeRepository;
+    }
+
+    @Autowired
+    public void setGameAdditionsRepository(GameAdditionsRepository gameAdditionsRepository) {
+        this.gameAdditionsRepository = gameAdditionsRepository;
+    }
+
+    @Autowired
+    public void setCountryRepository(CountryRepository countryRepository) {
+        this.countryRepository = countryRepository;
     }
 }
