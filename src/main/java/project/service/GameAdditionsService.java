@@ -17,4 +17,8 @@ public interface GameAdditionsService {
     GameAdditions findOne(Long id);
 
     GameAdditions findByGameAdditionsName(String text);
+
+    GameAdditionsForm findForGameAdditionsForm(Long id);
+
+    void deleteById(Long id);
 }

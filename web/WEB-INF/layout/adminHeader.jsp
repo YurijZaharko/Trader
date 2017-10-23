@@ -16,10 +16,11 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create menu<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/admin/help/faq">FAQ</a></li>
                         <li><a href="/admin/setup">Setup Games</a></li>
-                        <li><a href="/admin/setup">Link</a></li>
+                        <li><a href="/admin/setupAdditions">Setup additions</a></li>
+                        <li><a href="/admin/setupCountries">Setup countries</a></li>
                         <li role="separator" class="divider"></li>
+                        <li><a href="/admin/help/faq">FAQ</a></li>
                         <li><a href="#">Link</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/admin/testJsp">Link</a></li>

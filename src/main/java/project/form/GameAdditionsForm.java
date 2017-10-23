@@ -4,7 +4,6 @@ public class GameAdditionsForm {
     private Long gameAdditionsId;
     private String gameAdditionsName;
 
-
     public Long getGameAdditionsId() {
         return gameAdditionsId;
     }

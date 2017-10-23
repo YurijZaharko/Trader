@@ -44,6 +44,17 @@ public class GameAdditionsServiceImpl implements GameAdditionsService {
         return gameAdditionsRepository.findByGameAdditionsName(text);
     }
 
+    @Override
+    public GameAdditionsForm findForGameAdditionsForm(Long id) {
+        GameAdditions one = gameAdditionsRepository.findOne(id);
+        return gameAdditionsFormPopulator.convertEntityForm(one);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        gameAdditionsRepository.delete(id);
+    }
+
     @Autowired
     public void setGameAdditionsRepository(GameAdditionsRepository gameAdditionsRepository) {
         this.gameAdditionsRepository = gameAdditionsRepository;

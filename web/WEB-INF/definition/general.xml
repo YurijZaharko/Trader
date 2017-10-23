@@ -55,6 +55,20 @@
         <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp"/>
     </definition>
 
+    <definition name="setupAdditions" extends="common">
+        <put-attribute name="title" value="Setup additions"/>
+        <put-attribute name="header" value="/WEB-INF/layout/adminHeader.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/setupAdditions.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp"/>
+    </definition>
+
+    <definition name="setupCountries" extends="common">
+        <put-attribute name="title" value="Setup countries"/>
+        <put-attribute name="header" value="/WEB-INF/layout/adminHeader.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/setupCountries.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp"/>
+    </definition>
+
     <definition name="testJsp" extends="common">
         <put-attribute name="title" value="Test"/>
         <put-attribute name="header" value="/WEB-INF/layout/adminHeader.jsp"/>

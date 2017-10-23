@@ -11,12 +11,10 @@ import project.editors.GameAdditionsEditor;
 import project.entity.GameAdditions;
 import project.form.GameAdditionsForm;
 import project.form.GameTypeForm;
-import project.form.TestForm;
+import project.form.GameCountryForm;
 import project.service.CountryService;
 import project.service.GameAdditionsService;
 import project.service.GameTypeService;
-
-import java.util.List;
 
 @Controller
 public class GameSetupController {
@@ -24,6 +22,8 @@ public class GameSetupController {
     private GameAdditionsService gameAdditionsService;
     private GameTypeService gameTypeService;
     private static final String SETUP = "setup";
+    private static final String SETUP_ADDITIONS = "setupAdditions";
+    private static final String COUNTRIES = "countries";
 
     @ModelAttribute("gameTypeForm")
     public GameTypeForm getGameTypeForm() {
@@ -35,9 +35,9 @@ public class GameSetupController {
         return new GameAdditionsForm();
     }
 
-    @ModelAttribute("testAdd")
-    public List<GameAdditions> addTest(){
-        return gameAdditionsService.findAll();
+    @ModelAttribute("gameCountryForm")
+    public GameCountryForm getGameCountryForm(){
+        return new GameCountryForm();
     }
 
     @InitBinder("gameTypeForm")
@@ -47,11 +47,6 @@ public class GameSetupController {
 
     @InitBinder("gameAdditionsForm")
     protected void initBinderSecond(WebDataBinder webDataBinder){
-        webDataBinder.registerCustomEditor(GameAdditions.class, new GameAdditionsEditor(gameAdditionsService));
-    }
-
-    @InitBinder("testForm")
-    protected void initBinderTestForm(WebDataBinder webDataBinder){
         webDataBinder.registerCustomEditor(GameAdditions.class, new GameAdditionsEditor(gameAdditionsService));
     }
 
@@ -79,32 +74,61 @@ public class GameSetupController {
         gameTypeService.deleteById(id);
         return "redirect:/admin/setup";
     }
+
+    @GetMapping(value = "/admin/setupAdditions")
+    public String getAdditions(Model model,@PageableDefault Pageable pageable){
+        model.addAttribute("additions", gameAdditionsService.findAll(pageable));
+        return SETUP_ADDITIONS;
+    }
+
     @PostMapping(value = "admin/gameAdditions/save")
     public String saveAdditions(@ModelAttribute("gameAdditionsForm") GameAdditionsForm gameAdditionsForm){
         gameAdditionsService.save(gameAdditionsForm);
-        return SETUP;
+        return "redirect:/admin/setupAdditions";
     }
 
-    @RequestMapping(value = "/admin/testJsp", method = RequestMethod.GET)
-    public String getTest(Model model){
-        model.addAttribute("testForm", new TestForm());
-        return "testJsp";
+    @GetMapping(value = "/admin/addition/edit/{id}")
+    public String editAdditions(@PathVariable("id") Long id, Model model, @PageableDefault Pageable pageable){
+        model.addAttribute("gameAdditionsForm", gameAdditionsService.findForGameAdditionsForm(id));
+        model.addAttribute("additions", gameAdditionsService.findAll(pageable));
+        return SETUP_ADDITIONS;
     }
 
-    @RequestMapping(value = "/admin/testJsp", method = RequestMethod.POST)
-    public String test(@ModelAttribute("testForm") TestForm testForm){
-        List<GameAdditions> gameAdditionsSet = testForm.getGameAdditionsSet();
-        System.out.println(gameAdditionsSet);
-        return "testJsp";
+    @GetMapping(value = "/admin/addition/delete/{id}")
+    public String deleteAdditions(@PathVariable("id") Long id){
+        gameAdditionsService.deleteById(id);
+        return "redirect:/admin/setupAdditions";
+    }
+
+    @GetMapping(value = "/admin/setupCountries")
+    public String getCountry(Model model, @PageableDefault Pageable pageable){
+        model.addAttribute(COUNTRIES, countryService.findAll(pageable));
+        return "setupCountries";
+    }
+
+    @PostMapping(value = "/admin/country/save")
+    public String saveCountry(@ModelAttribute(value = "gameCountryForm") GameCountryForm gameCountryForm){
+        countryService.saveGameCountryForm(gameCountryForm);
+        return "redirect:/admin/setupCountries";
+    }
+    @GetMapping(value = "/admin/country/edit/{id}")
+    public String editCountry(@PathVariable("id") Long id, Model model, @PageableDefault Pageable pageable){
+        model.addAttribute("gameCountryForm", countryService.findForGameCountryForm(id));
+        model.addAttribute(COUNTRIES, countryService.findAll(pageable));
+        return "setupCountries";
+    }
+    @GetMapping(value = "/admin/country/delete/{id}")
+    public String deleteCountry(@PathVariable("id") Long id){
+        countryService.deleteById(id);
+        return "redirect:/admin/setupCountries";
     }
 
     /**
-     * Populate model for getSetup, editGame methods
+     * Populate model for getSetup
      **/
     private void addModel(Model model, Pageable pageable) {
-        model.addAttribute("countries", countryService.findAll());
+        model.addAttribute(COUNTRIES, countryService.findAll());
         model.addAttribute("gameAdditionsList", gameAdditionsService.findAll());
-        model.addAttribute("gameAdditions", gameAdditionsService.findAll());
         model.addAttribute("games", gameTypeService.findAll(pageable));
     }
 

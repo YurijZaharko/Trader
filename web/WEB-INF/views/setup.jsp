@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-md-6">
                             <form:checkboxes path="gameAdditionsId" items="${gameAdditionsList}" itemValue="id"
-                                             itemLabel="gameAdditionsName" id="gameAdditionsName"/>
+                                             itemLabel="gameAdditionsName" id="gameAdditionsName" cssClass="checkbox"/>
                         </div>
                     </div>
                     <div class="row" style="padding-top: 10pt">

@@ -97,6 +97,8 @@
 
     <bean id="gameTypeFormPopulator" class="project.form.populator.GameTypeFormPopulator"/>
 
+    <bean id="countryFormPopulator" class="project.form.populator.CountryFormPopulator"/>
+
     <!--Events-->
     <bean id="sendVerificationPublisher" class="project.events.eventPublisher.SendVerificationPublisher"/>
 

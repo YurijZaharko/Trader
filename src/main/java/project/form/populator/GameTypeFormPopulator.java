@@ -7,7 +7,6 @@ import project.entity.GameType;
 import project.form.GameTypeForm;
 import project.repository.CountryRepository;
 import project.repository.GameAdditionsRepository;
-import project.repository.GameTypeRepository;
 
 import java.util.List;
 import java.util.Set;
@@ -16,7 +15,6 @@ import java.util.stream.Collectors;
 public class GameTypeFormPopulator {
     private GameAdditionsRepository gameAdditionsRepository;
     private CountryRepository countryRepository;
-    private GameTypeRepository gameTypeRepository;
 
     public GameType convertFormEntity(GameTypeForm gameTypeForm) {
         GameType gameType = new GameType();
@@ -63,11 +61,6 @@ public class GameTypeFormPopulator {
             gameTypeForm.setGameAdditionsId(gameAdditionsId);
         }
         return gameTypeForm;
-    }
-
-    @Autowired
-    public void setGameTypeRepository(GameTypeRepository gameTypeRepository) {
-        this.gameTypeRepository = gameTypeRepository;
     }
 
     @Autowired
