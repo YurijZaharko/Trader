@@ -5,6 +5,7 @@ import java.util.Set;
 
 @Entity
 public class GameType {
+
     private Long id;
     private Set<Country> countries;
     private Set<GameAdditions> gameAdditions;
@@ -46,8 +47,8 @@ public class GameType {
 
     @ManyToMany
     @JoinTable(name = "GameType_GameAdditions", joinColumns =
-    @JoinColumn(name = "fk_Country"), inverseJoinColumns =
-    @JoinColumn(name = "fk_GameAdditions"))
+    @JoinColumn(name = "fk_GameAdditions"), inverseJoinColumns =
+    @JoinColumn(name = "fk_GameType"))
     public Set<GameAdditions> getGameAdditions() {
         return gameAdditions;
     }

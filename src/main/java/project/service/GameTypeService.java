@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import project.entity.GameType;
 import project.form.GameTypeForm;
 
+import java.util.List;
+
 public interface GameTypeService {
     Page<GameType> findAll(Pageable pageable);
 
@@ -13,4 +15,6 @@ public interface GameTypeService {
     void deleteById(Long id);
 
     GameTypeForm findForForm(Long id);
+
+    List<GameType> findAllFetchAll();
 }

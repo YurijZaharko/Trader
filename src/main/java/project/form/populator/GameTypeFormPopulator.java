@@ -27,17 +27,17 @@ public class GameTypeFormPopulator {
         String gameName = gameTypeForm.getGameName();
         gameType.setGameName(gameName);
 
-        List<Long> countries = gameTypeForm.getCountriesId();
-        if (countries != null) {
-            Set<Country> countryList = countryRepository.findByIdIn(countries);
-            gameType.setCountries(countryList);
-        }
-
-        List<Long> gameAdditions = gameTypeForm.getGameAdditionsId();
-        if (gameAdditions != null) {
-            Set<GameAdditions> gameAdditionsList = gameAdditionsRepository.findByIdIn(gameAdditions);
-            gameType.setGameAdditions(gameAdditionsList);
-        }
+//        List<Long> countries = gameTypeForm.getCountriesId();
+//        if (countries != null) {
+//            Set<Country> countryList = countryRepository.findByIdIn(countries);
+//            gameType.setCountries(countryList);
+//        }
+//
+//        List<Long> gameAdditions = gameTypeForm.getGameAdditionsId();
+//        if (gameAdditions != null) {
+//            Set<GameAdditions> gameAdditionsList = gameAdditionsRepository.findByIdIn(gameAdditions);
+//            gameType.setGameAdditions(gameAdditionsList);
+//        }
 
         return gameType;
     }

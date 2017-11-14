@@ -32,8 +32,8 @@ public class GameAdditions {
 
     @ManyToMany
     @JoinTable(name = "GameType_GameAdditions", joinColumns =
-    @JoinColumn(name = "fk_GameAdditions"), inverseJoinColumns =
-    @JoinColumn(name = "fk_GameType"))
+    @JoinColumn(name = "fk_GameType"), inverseJoinColumns =
+    @JoinColumn(name = "fk_GameAdditions"))
     public Set<GameType> getGameTypes() {
         return gameTypes;
     }

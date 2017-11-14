@@ -42,6 +42,9 @@ public class GameTypeServiceImpl implements GameTypeService {
         List<Long> gameAdditionsId = gameTypeForm.getGameAdditionsId();
         List<Long> countriesId = gameTypeForm.getCountriesId();
 
+        String fileExtension = saveMultipartFile(multipartFile, id);
+        gameType.setImageExtension(fileExtension);
+
         if (gameAdditionsId != null && !gameAdditionsId.isEmpty()){
             Set<GameAdditions> byIdIn = gameAdditionsRepository.findByIdIn(gameAdditionsId);
             gameType.setGameAdditions(byIdIn);
@@ -50,10 +53,7 @@ public class GameTypeServiceImpl implements GameTypeService {
             Set<Country> byIdIn = countryRepository.findByIdIn(countriesId);
             gameType.setCountries(byIdIn);
         }
-
-        String fileExtension = saveMultipartFile(multipartFile, id);
-        gameType.setImageExtension(fileExtension);
-        gameTypeRepository.save(gameType);
+        gameTypeRepository.saveAndFlush(gameType);
     }
 
     @Override
@@ -65,6 +65,11 @@ public class GameTypeServiceImpl implements GameTypeService {
     public GameTypeForm findForForm(Long id) {
         GameType one = gameTypeRepository.findOneFetchAll(id);
         return gameTypeFormPopulator.convertEntityForm(one);
+    }
+
+    @Override
+    public List<GameType> findAllFetchAll() {
+        return gameTypeRepository.findAllFetchAll();
     }
 
     private String saveMultipartFile(MultipartFile multipartFile, Long id) {

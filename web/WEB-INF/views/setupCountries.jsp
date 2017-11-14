@@ -22,6 +22,7 @@
                         </div>
                         <div class="col-md-6">
                             <form:hidden path="countryId"/>
+                            <form:errors path="shortName"/>
                             <form:input path="shortName"/>
                         </div>
                     </div>
@@ -30,6 +31,7 @@
                             <label>Country full name</label>
                         </div>
                         <div class="col-md-6">
+                            <form:errors path="fullName"/>
                             <form:input path="fullName"/>
                         </div>
                     </div>

@@ -33,7 +33,7 @@
                         </div>
                         <div class="col-md-6">
                             <form:checkboxes path="countriesId" items="${countries}" itemValue="id" itemLabel="fullName"
-                                             id="countries"/>
+                                             id="countries" delimiter="<br/>"/>
                         </div>
                     </div>
                     <div class="row" style="padding-top: 10pt">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-md-6">
                             <form:checkboxes path="gameAdditionsId" items="${gameAdditionsList}" itemValue="id"
-                                             itemLabel="gameAdditionsName" id="gameAdditionsName" cssClass="checkbox"/>
+                                             itemLabel="gameAdditionsName" id="gameAdditionsName" delimiter="<br/>" />
                         </div>
                     </div>
                     <div class="row" style="padding-top: 10pt">
