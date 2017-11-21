@@ -33,10 +33,8 @@ public class CustomMailSenderImpl implements MailService {
 
     private SimpleMailMessage init(String subject, String text){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage(this.template);
-
         simpleMailMessage.setSubject(subject);
         simpleMailMessage.setText(text);
-
         return simpleMailMessage;
     }
 

@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import project.entity.GameType;
 import project.form.GameTypeForm;
 import project.form.populator.GameTypeFormPopulator;
-import project.repository.CountryRepository;
-import project.repository.GameAdditionsRepository;
 import project.repository.GameTypeRepository;
 import project.service.GameTypeService;
 
@@ -18,8 +16,6 @@ import java.util.List;
 public class GameTypeServiceImpl implements GameTypeService {
     private GameTypeRepository gameTypeRepository;
     private GameTypeFormPopulator gameTypeFormPopulator;
-    private GameAdditionsRepository gameAdditionsRepository;
-    private CountryRepository countryRepository;
 
     @Override
     public Page<GameType> findAll(Pageable pageable) {
@@ -56,15 +52,5 @@ public class GameTypeServiceImpl implements GameTypeService {
     @Autowired
     public void setGameTypeRepository(GameTypeRepository gameTypeRepository) {
         this.gameTypeRepository = gameTypeRepository;
-    }
-
-    @Autowired
-    public void setGameAdditionsRepository(GameAdditionsRepository gameAdditionsRepository) {
-        this.gameAdditionsRepository = gameAdditionsRepository;
-    }
-
-    @Autowired
-    public void setCountryRepository(CountryRepository countryRepository) {
-        this.countryRepository = countryRepository;
     }
 }

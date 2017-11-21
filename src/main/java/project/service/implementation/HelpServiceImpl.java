@@ -22,15 +22,12 @@ public class HelpServiceImpl implements HelpService {
     public void saveTextFormToFile(TextForm textForm) {
         String templateName = textForm.getTemplateName();
         String mainText = textForm.getMainText();
-
         stringFileWriter.writeFile(templateName, mainText);
     }
 
     @Override
     public List<String> getListOfTemplate() {
         List<String> list = new ArrayList<>();
-
-
         File[] files = templateDirectory.listFiles();
         if (files != null) {
             for (File file : files) {
