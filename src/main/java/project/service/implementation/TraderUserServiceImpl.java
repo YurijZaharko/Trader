@@ -29,7 +29,6 @@ import java.util.Date;
 
 @Service(value = "userDetailsService")
 public class TraderUserServiceImpl implements TraderUserService, UserDetailsService {
-
     private TraderUserRepository traderUserRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private RegistrationFormPopulator registrationFormPopulator;
@@ -64,40 +63,46 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
     @Override
     public void saveRegistrationForm(RegistrationForm registrationForm) {
         TraderUser traderUser = registrationFormPopulator.convertFormUser(registrationForm);
+        setRoleAndLockStatus(traderUser);
+        VerificationToken verificationToken = generateVerificationToken(registrationForm);
+        verificationTokenRepository.saveAndFlush(verificationToken);
+        traderUser.setVerificationToken(verificationToken);
+        traderUserRepository.save(traderUser);
+        sendActivationURL(verificationToken.getVerificationKey(), registrationForm.getEmail());
+    }
+
+    private void setRoleAndLockStatus(TraderUser traderUser){
         traderUser.setRole(Role.ROLE_UNACTIVATED_USER);
         traderUser.setAccountNonLocked(true);
+    }
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD HH-mm-ss");
+    private VerificationToken generateVerificationToken(RegistrationForm registrationForm){
         Date date = new Date();
-        String currentDate = simpleDateFormat.format(date);
-        int expireHours = 24;
-        Date expirationDate = generateExpirationDate(date, expireHours);
+        String currentDate = getCurrentDate(date);
+        Date expirationDate = generateExpirationDate(date);
 
         String verificationKey = verificationTokenService.verificationKeyGenerator(registrationForm.getEmail(), registrationForm.getNickName(), currentDate);
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setVerificationKey(verificationKey);
         verificationToken.setExpirationDate(expirationDate);
-        verificationTokenRepository.saveAndFlush(verificationToken);
-
-        traderUser.setVerificationToken(verificationToken);
-        traderUserRepository.save(traderUser);
-
-        sendVerificationPublisher.publish(verificationKey, registrationForm.getEmail());
+        return verificationToken;
     }
 
-    private Date generateExpirationDate(Date date, int expireInHours) {
+    private String getCurrentDate(Date date){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD HH-mm-ss");
+        return simpleDateFormat.format(date);
+    }
+
+    private Date generateExpirationDate(Date date) {
+        int expireHours = 24;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.HOUR_OF_DAY, expireInHours);
+        calendar.add(Calendar.HOUR_OF_DAY, expireHours);
         return calendar.getTime();
     }
 
-
-
-    @Override
-    public void sendActivationURL(RegistrationForm registrationForm) {
-        String userName = registrationForm.getEmail();
-        TraderUser traderUser = traderUserRepository.findByUsername(userName);
+    private void sendActivationURL(String verificationKey, String userEmail) {
+        sendVerificationPublisher.publish(verificationKey, userEmail);
     }
 
     @Override

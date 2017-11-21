@@ -108,7 +108,6 @@ public class TraderUser implements UserDetails {
         this.nickName = nickName;
     }
 
-
     public VerificationToken getVerificationToken() {
         return verificationToken;
     }

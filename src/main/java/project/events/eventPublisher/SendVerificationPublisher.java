@@ -5,7 +5,6 @@ import org.springframework.context.ApplicationEventPublisherAware;
 import project.events.SendVerificationEvent;
 
 public class SendVerificationPublisher implements ApplicationEventPublisherAware {
-
     private ApplicationEventPublisher publisher;
 
     public void setApplicationEventPublisher (ApplicationEventPublisher publisher) {

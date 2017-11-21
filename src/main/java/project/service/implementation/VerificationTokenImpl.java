@@ -13,6 +13,7 @@ public class VerificationTokenImpl implements VerificationTokenService {
     public String verificationKeyGenerator(String email, String nickName, String currentDate) {
         String data = email + currentDate + nickName;
         byte[] temp = Base64.encodeBase64(DigestUtils.sha256(data));
-        return Arrays.toString(temp);
+        String string = Arrays.toString(temp);
+        return string.replaceAll(", ", "");
     }
 }

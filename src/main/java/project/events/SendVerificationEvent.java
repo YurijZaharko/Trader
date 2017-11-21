@@ -3,9 +3,7 @@ package project.events;
 import org.springframework.context.ApplicationEvent;
 
 public class SendVerificationEvent extends ApplicationEvent {
-
     private String verificationKey;
-
     private String sendTo;
 
     public SendVerificationEvent(Object source) {
