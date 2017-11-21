@@ -5,7 +5,14 @@ import java.util.Set;
 
 @Entity
 public class Country {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToMany
+    @JoinTable(name = "GameType_Country", joinColumns =
+    @JoinColumn(name = "fk_GameType"), inverseJoinColumns =
+    @JoinColumn(name = "fk_Country"))
     private Set<GameType> gameTypes;
     private String shortName;
     private String fullName;
@@ -13,8 +20,6 @@ public class Country {
     public Country() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -39,10 +44,6 @@ public class Country {
         this.fullName = fullName;
     }
 
-    @ManyToMany
-    @JoinTable(name = "GameType_Country", joinColumns =
-    @JoinColumn(name = "fk_GameType"), inverseJoinColumns =
-    @JoinColumn(name = "fk_Country"))
     public Set<GameType> getGameTypes() {
         return gameTypes;
     }

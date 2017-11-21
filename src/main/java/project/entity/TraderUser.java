@@ -18,6 +18,8 @@ public class TraderUser implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "traderUser")
     private VerificationToken verificationToken;
     private String username;
     private String password;
@@ -106,7 +108,7 @@ public class TraderUser implements UserDetails {
         this.nickName = nickName;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "traderUser")
+
     public VerificationToken getVerificationToken() {
         return verificationToken;
     }

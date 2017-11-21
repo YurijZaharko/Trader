@@ -1,9 +1,13 @@
 package project.form;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Component
+@Scope(value = "prototype")
 public class GameTypeForm {
     private Long id;
     private String gameName;

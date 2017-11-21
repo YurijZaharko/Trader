@@ -5,15 +5,20 @@ import java.util.Set;
 
 @Entity
 public class GameAdditions {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String gameAdditionsName;
+
+    @ManyToMany
+    @JoinTable(name = "GameType_GameAdditions", joinColumns =
+    @JoinColumn(name = "fk_GameType"), inverseJoinColumns =
+    @JoinColumn(name = "fk_GameAdditions"))
     private Set<GameType> gameTypes;
+    private String gameAdditionsName;
 
     public GameAdditions() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -30,10 +35,6 @@ public class GameAdditions {
         this.gameAdditionsName = gameAdditionsName;
     }
 
-    @ManyToMany
-    @JoinTable(name = "GameType_GameAdditions", joinColumns =
-    @JoinColumn(name = "fk_GameType"), inverseJoinColumns =
-    @JoinColumn(name = "fk_GameAdditions"))
     public Set<GameType> getGameTypes() {
         return gameTypes;
     }

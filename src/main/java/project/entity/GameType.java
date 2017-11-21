@@ -5,9 +5,20 @@ import java.util.Set;
 
 @Entity
 public class GameType {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToMany
+    @JoinTable(name = "GameType_Country", joinColumns =
+    @JoinColumn(name = "fk_Country"), inverseJoinColumns =
+    @JoinColumn(name = "fk_GameType"))
     private Set<Country> countries;
+
+    @ManyToMany
+    @JoinTable(name = "GameType_GameAdditions", joinColumns =
+    @JoinColumn(name = "fk_GameAdditions"), inverseJoinColumns =
+    @JoinColumn(name = "fk_GameType"))
     private Set<GameAdditions> gameAdditions;
     private String gameName;
     private String imageExtension;
@@ -15,8 +26,6 @@ public class GameType {
     public GameType() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -33,10 +42,6 @@ public class GameType {
         this.gameName = gameName;
     }
 
-    @ManyToMany
-    @JoinTable(name = "GameType_Country", joinColumns =
-    @JoinColumn(name = "fk_Country"), inverseJoinColumns =
-    @JoinColumn(name = "fk_GameType"))
     public Set<Country> getCountries() {
         return countries;
     }
@@ -45,10 +50,6 @@ public class GameType {
         this.countries = countries;
     }
 
-    @ManyToMany
-    @JoinTable(name = "GameType_GameAdditions", joinColumns =
-    @JoinColumn(name = "fk_GameAdditions"), inverseJoinColumns =
-    @JoinColumn(name = "fk_GameType"))
     public Set<GameAdditions> getGameAdditions() {
         return gameAdditions;
     }

@@ -32,18 +32,16 @@ public class IndexServiceImpl implements IndexService {
 
         int count = 0;
         for (int i = 0; i < quantityOFColumn; i++) {
-            for (int j = i; j < listSize; j+=quantityOFColumn) {
+            for (int j = i; j < listSize; j += quantityOFColumn) {
                 GameType gameType = gameTypeListFetchAll.get(count);
                 count++;
                 resultList.set(j, gameType);
             }
         }
-
-
         return resultList;
     }
 
-    private List<GameType> warmUp(int size){
+    private List<GameType> warmUp(int size) {
         List<GameType> resultList = new LinkedList<>();
         for (int i = 0; i < size; i++) {
             resultList.add(i, null);

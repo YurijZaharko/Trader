@@ -6,16 +6,20 @@ import java.util.Date;
 
 @Entity
 public class VerificationToken implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
     private TraderUser traderUser;
+
+    @Temporal(TemporalType.DATE)
     private Date expirationDate;
     private String verificationKey;
 
     public VerificationToken() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -24,7 +28,6 @@ public class VerificationToken implements Serializable {
         this.id = id;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
     public TraderUser getTraderUser() {
         return traderUser;
     }
@@ -33,7 +36,6 @@ public class VerificationToken implements Serializable {
         this.traderUser = traderUser;
     }
 
-    @Temporal(TemporalType.DATE)
     public Date getExpirationDate() {
         return expirationDate;
     }

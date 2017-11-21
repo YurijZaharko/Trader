@@ -4,10 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import project.config.PathConfiguration;
-import project.entity.Country;
-import project.entity.GameAdditions;
 import project.entity.GameType;
 import project.form.GameTypeForm;
 import project.form.populator.GameTypeFormPopulator;
@@ -16,16 +12,12 @@ import project.repository.GameAdditionsRepository;
 import project.repository.GameTypeRepository;
 import project.service.GameTypeService;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class GameTypeServiceImpl implements GameTypeService {
     private GameTypeRepository gameTypeRepository;
     private GameTypeFormPopulator gameTypeFormPopulator;
-    private PathConfiguration pathConfiguration;
     private GameAdditionsRepository gameAdditionsRepository;
     private CountryRepository countryRepository;
 
@@ -37,22 +29,6 @@ public class GameTypeServiceImpl implements GameTypeService {
     @Override
     public void saveGameTypeForm(GameTypeForm gameTypeForm) {
         GameType gameType = gameTypeFormPopulator.convertFormEntity(gameTypeForm);
-        Long id = gameTypeForm.getId();
-        MultipartFile multipartFile = gameTypeForm.getMultipartFile();
-        List<Long> gameAdditionsId = gameTypeForm.getGameAdditionsId();
-        List<Long> countriesId = gameTypeForm.getCountriesId();
-
-        String fileExtension = saveMultipartFile(multipartFile, id);
-        gameType.setImageExtension(fileExtension);
-
-        if (gameAdditionsId != null && !gameAdditionsId.isEmpty()){
-            Set<GameAdditions> byIdIn = gameAdditionsRepository.findByIdIn(gameAdditionsId);
-            gameType.setGameAdditions(byIdIn);
-        }
-        if (countriesId != null && !countriesId.isEmpty()){
-            Set<Country> byIdIn = countryRepository.findByIdIn(countriesId);
-            gameType.setCountries(byIdIn);
-        }
         gameTypeRepository.saveAndFlush(gameType);
     }
 
@@ -70,31 +46,6 @@ public class GameTypeServiceImpl implements GameTypeService {
     @Override
     public List<GameType> findAllFetchAll() {
         return gameTypeRepository.findAllFetchAll();
-    }
-
-    private String saveMultipartFile(MultipartFile multipartFile, Long id) {
-        if (multipartFile != null && !multipartFile.isEmpty()) {
-            File imageDirectory = pathConfiguration.getImageDirectory();
-            String originalFilename = multipartFile.getOriginalFilename();
-            int indexOfDot = originalFilename.lastIndexOf('.');
-            String extension = originalFilename.substring(indexOfDot);
-            String newFileName = String.valueOf(id) + extension;
-
-            File imageFile = new File(imageDirectory, newFileName);
-
-            try {
-                multipartFile.transferTo(imageFile);
-                return extension;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    @Autowired
-    public void setPathConfiguration(PathConfiguration pathConfiguration) {
-        this.pathConfiguration = pathConfiguration;
     }
 
     @Autowired

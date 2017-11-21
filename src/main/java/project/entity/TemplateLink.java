@@ -7,6 +7,8 @@ import javax.persistence.Id;
 
 @Entity
 public class TemplateLink {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String linkName;
     private String templateName;
@@ -14,8 +16,6 @@ public class TemplateLink {
     public TemplateLink() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
