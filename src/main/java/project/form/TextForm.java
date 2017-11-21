@@ -1,7 +1,6 @@
 package project.form;
 
 public class TextForm {
-
     private String templateName;
     private String mainText;
 

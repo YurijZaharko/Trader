@@ -1,13 +1,9 @@
 package project.form;
 
 public class RegistrationForm {
-
     private String email;
-
     private String password;
-
     private String passwordRepeat;
-
     private String nickName;
 
     public String getEmail() {

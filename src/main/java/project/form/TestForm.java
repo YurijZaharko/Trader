@@ -5,7 +5,6 @@ import project.entity.GameAdditions;
 import java.util.List;
 
 public class TestForm {
-
     private List<GameAdditions> gameAdditionsSet;
 
     public List<GameAdditions> getGameAdditionsSet() {
