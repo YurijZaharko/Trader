@@ -23,9 +23,9 @@ import project.service.VerificationTokenService;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 @Service(value = "userDetailsService")
 public class TraderUserServiceImpl implements TraderUserService, UserDetailsService {
@@ -56,6 +56,7 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
             traderUser.setEnabled(true);
             traderUser.setPassword(bCryptPasswordEncoder.encode("nimda"));
             traderUser.setAccountNonLocked(true);
+            traderUser.setRegistrationTime(Calendar.getInstance());
             traderUserRepository.save(traderUser);
         }
     }
@@ -77,9 +78,9 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
     }
 
     private VerificationToken generateVerificationToken(RegistrationForm registrationForm){
-        Date date = new Date();
-        String currentDate = getCurrentDate(date);
-        Date expirationDate = generateExpirationDate(date);
+        Calendar currentTime = Calendar.getInstance();
+        String currentDate = getCurrentDate(currentTime);
+        Calendar expirationDate = generateExpirationDate(currentTime);
 
         String verificationKey = verificationTokenService.verificationKeyGenerator(registrationForm.getEmail(), registrationForm.getNickName(), currentDate);
         VerificationToken verificationToken = new VerificationToken();
@@ -88,17 +89,15 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
         return verificationToken;
     }
 
-    private String getCurrentDate(Date date){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD HH-mm-ss");
-        return simpleDateFormat.format(date);
+    private String getCurrentDate(Calendar date){
+        DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD HH-mm-ss");
+        return simpleDateFormat.format(date.getTime());
     }
 
-    private Date generateExpirationDate(Date date) {
+    private Calendar generateExpirationDate(Calendar currentTime) {
         int expireHours = 24;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.HOUR_OF_DAY, expireHours);
-        return calendar.getTime();
+        currentTime.add(Calendar.HOUR_OF_DAY, expireHours);
+        return currentTime;
     }
 
     private void sendActivationURL(String verificationKey, String userEmail) {
@@ -107,6 +106,7 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
 
     @Override
     public String findHelpPage(String linkName) {
+        /* TODO: move method findHelpPage(String string) to separate class */
         TemplateLink templateLink = templateLinkRepository.findByLinkName(linkName);
         String templateName = templateLink.getTemplateName();
         String content = null;
@@ -117,6 +117,11 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
             e.printStackTrace();
         }
         return content;
+    }
+
+    @Override
+    public TraderUser findByUsername(String username) {
+        return traderUserRepository.findByUsername(username);
     }
 
     @Autowired

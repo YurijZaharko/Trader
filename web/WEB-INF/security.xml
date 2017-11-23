@@ -20,9 +20,13 @@
     <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
         <!--<beans:constructor-arg name="strength" value="15" />-->
     </beans:bean>
-    <authentication-manager>
-        <authentication-provider user-service-ref="userDetailsService">
-            <password-encoder ref="encoder"/>
-        </authentication-provider>
+    <!--<authentication-manager>-->
+        <!--<authentication-provider user-service-ref="userDetailsService">-->
+            <!--<password-encoder ref="encoder"/>-->
+        <!--</authentication-provider>-->
+    <!--</authentication-manager>-->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="customAuthenticationProviderImpl"/>
+
     </authentication-manager>
 </beans:beans>

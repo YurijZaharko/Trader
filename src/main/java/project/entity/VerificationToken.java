@@ -2,7 +2,7 @@ package project.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 
 @Entity
 public class VerificationToken implements Serializable {
@@ -13,8 +13,8 @@ public class VerificationToken implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     private TraderUser traderUser;
 
-    @Temporal(TemporalType.DATE)
-    private Date expirationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar expirationDate;
     private String verificationKey;
 
     public VerificationToken() {
@@ -36,11 +36,11 @@ public class VerificationToken implements Serializable {
         this.traderUser = traderUser;
     }
 
-    public Date getExpirationDate() {
+    public Calendar getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(Calendar expirationDate) {
         this.expirationDate = expirationDate;
     }
 

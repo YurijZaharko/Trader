@@ -6,9 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import project.entity.enumtype.Role;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class TraderUser implements UserDetails {
@@ -21,11 +19,18 @@ public class TraderUser implements UserDetails {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "traderUser")
     private VerificationToken verificationToken;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar registrationTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar firstTimeOfWrongLogin;
     private String username;
     private String password;
     private String nickName;
     private boolean accountNonLocked = true;
     private boolean enabled = false;
+    private int failAttempts;
 
     public TraderUser() {
     }
@@ -114,6 +119,30 @@ public class TraderUser implements UserDetails {
 
     public void setVerificationToken(VerificationToken verificationToken) {
         this.verificationToken = verificationToken;
+    }
+
+    public Calendar getFirstTimeOfWrongLogin() {
+        return firstTimeOfWrongLogin;
+    }
+
+    public void setFirstTimeOfWrongLogin(Calendar firstTimeOfWrongLogin) {
+        this.firstTimeOfWrongLogin = firstTimeOfWrongLogin;
+    }
+
+    public int getFailAttempts() {
+        return failAttempts;
+    }
+
+    public void setFailAttempts(int failAttempts) {
+        this.failAttempts = failAttempts;
+    }
+
+    public Calendar getRegistrationTime() {
+        return registrationTime;
+    }
+
+    public void setRegistrationTime(Calendar registration) {
+        this.registrationTime = registration;
     }
 
     @Override
