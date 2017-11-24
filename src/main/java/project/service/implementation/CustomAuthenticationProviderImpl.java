@@ -2,6 +2,7 @@ package project.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -28,21 +29,37 @@ public class CustomAuthenticationProviderImpl implements CustomAuthenticationPro
         String credential = authentication.getCredentials() + "";
 
         TraderUser user = traderUserService.findByUsername(principal);
-        Role role = user.getRole();
-        List<GrantedAuthority> grantedAuthorityList = new LinkedList<>();
-        grantedAuthorityList.add(new SimpleGrantedAuthority(role.toString()));
-        String password = user.getPassword();
 
-        if (!encoder.matches(credential, password)){
-            throw new BadCredentialsException("Bad Credential");
-        }
+        List<GrantedAuthority> grantedAuthorityList = getAuthorityList(user);
+        isAccountDisable(user);
+        isBadCredential(user, credential);
 
         return new UsernamePasswordAuthenticationToken(user, credential, grantedAuthorityList);
     }
 
+    private List<GrantedAuthority> getAuthorityList(TraderUser user){
+        Role role = user.getRole();
+        List<GrantedAuthority> grantedAuthorityList = new LinkedList<>();
+        grantedAuthorityList.add(new SimpleGrantedAuthority(role.toString()));
+        return grantedAuthorityList;
+    }
+
+    private void isAccountDisable(TraderUser user){
+        if (!user.isAccountNonLocked()){
+            throw new LockedException("Account is locked");
+        }
+    }
+
+    private void isBadCredential(TraderUser user, String credential){
+        String password = user.getPassword();
+        if (!encoder.matches(credential, password)){
+            throw new BadCredentialsException("Bad Credential");
+        }
+    }
+
     @Override
     public boolean supports(Class<?> aClass) {
-        return true;
+        return aClass.equals(UsernamePasswordAuthenticationToken.class);
     }
 
     @Autowired

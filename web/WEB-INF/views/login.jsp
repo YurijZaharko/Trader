@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: SC
@@ -32,9 +33,10 @@
                 <button type="submit" class="btn btn-primary center-block">Ok</button>
                 <c:if test="${param.fail}">
                     <div class="col-md-12 col-xs-12">
-                        <p style="color: red;">Fail</p>
+                        <p style="color: red;">Fail!!!   ${SPRING_SECURITY_LAST_EXCEPTION.message}</p>
                     </div>
                 </c:if>
+
             </div>
         </div>
     </form:form>

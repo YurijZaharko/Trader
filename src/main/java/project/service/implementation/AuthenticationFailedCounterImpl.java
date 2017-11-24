@@ -17,26 +17,36 @@ public class AuthenticationFailedCounterImpl implements AuthenticationFailedCoun
 
     @Override
     public void checkUser(final String userName) {
-        int hours = -1;
         TraderUser tradeUser = traderUserService.findByUsername(userName);
-        Calendar onrHourBefore = Calendar.getInstance();
-        onrHourBefore.add(Calendar.HOUR_OF_DAY, hours);
-
-        Calendar failLoginTime = tradeUser.getFirstTimeOfWrongLogin();
         int failAttempts = tradeUser.getFailAttempts();
-        int firstFailAttempts = 1;
-        if (failLoginTime != null && failLoginTime.after(onrHourBefore)){
-            if (failAttempts >= MAX_NUMBER_OF_LOGIN_FAILS){
+        if (userFailAgain(tradeUser)) {
+            if (failAttempts >= MAX_NUMBER_OF_LOGIN_FAILS) {
                 tradeUser.setAccountNonLocked(false);
             } else {
-                failAttempts++;
-                tradeUser.setFailAttempts(failAttempts);
+                tradeUser.setFailAttempts(++failAttempts);
             }
         } else {
-            tradeUser.setFailAttempts(firstFailAttempts);
-            tradeUser.setFirstTimeOfWrongLogin(Calendar.getInstance());
+           setFirstFailLogin(tradeUser);
         }
         traderUserRepository.save(tradeUser);
+    }
+
+    private void setFirstFailLogin(TraderUser traderUser){
+        int firstFailAttempts = 1;
+        traderUser.setFailAttempts(firstFailAttempts);
+        traderUser.setFirstTimeOfWrongLogin(Calendar.getInstance());
+    }
+
+    private boolean userFailAgain(TraderUser tradeUser) {
+        Calendar failLoginTime = tradeUser.getFirstTimeOfWrongLogin();
+        return failLoginTime != null && failLoginTime.after(getTimeOneHourBefore());
+    }
+
+    private Calendar getTimeOneHourBefore() {
+        int hours = -1;
+        Calendar onrHourBefore = Calendar.getInstance();
+        onrHourBefore.add(Calendar.HOUR_OF_DAY, hours);
+        return onrHourBefore;
     }
 
     @Autowired

@@ -27,6 +27,5 @@
     <!--</authentication-manager>-->
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="customAuthenticationProviderImpl"/>
-
     </authentication-manager>
 </beans:beans>
