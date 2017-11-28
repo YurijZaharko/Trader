@@ -32,16 +32,16 @@ public class GameTypeFormPopulator {
         return gameType;
     }
 
-    private void setGameName(GameTypeForm gameTypeForm, GameType gameType) {
-        String gameName = gameTypeForm.getGameName();
-        gameType.setGameName(gameName);
-    }
-
     private void setId(GameTypeForm gameTypeForm, GameType gameType) {
         Long id = gameTypeForm.getId();
         if (id != null) {
             gameType.setId(id);
         }
+    }
+
+    private void setGameName(GameTypeForm gameTypeForm, GameType gameType) {
+        String gameName = gameTypeForm.getGameName();
+        gameType.setGameName(gameName);
     }
 
     private void setImageExtension(GameTypeForm gameTypeForm, GameType gameType) {
@@ -80,6 +80,7 @@ public class GameTypeFormPopulator {
                 return fileExtension;
             } catch (IOException e) {
                 e.printStackTrace();
+                return "";
             }
         }
         return "";

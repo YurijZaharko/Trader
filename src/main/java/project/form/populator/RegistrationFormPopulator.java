@@ -6,18 +6,18 @@ import project.form.RegistrationForm;
 
 public class RegistrationFormPopulator {
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder BCryptPasswordEncoder;
 
     public TraderUser convertFormUser(RegistrationForm registrationForm) {
         TraderUser newUser = new TraderUser();
         newUser.setNickName(registrationForm.getNickName());
         newUser.setUsername(registrationForm.getEmail());
-        newUser.setPassword(bCryptPasswordEncoder.encode(registrationForm.getPassword()));
+        newUser.setPassword(BCryptPasswordEncoder.encode(registrationForm.getPassword()));
         return newUser;
     }
 
 
-    public void setbCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    public void setBCryptPasswordEncoder(BCryptPasswordEncoder BCryptPasswordEncoder) {
+        this.BCryptPasswordEncoder = BCryptPasswordEncoder;
     }
 }

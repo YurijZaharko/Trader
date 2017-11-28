@@ -90,7 +90,7 @@
     <!--populators-->
 
     <bean id="registrationFormPopulator" class="project.form.populator.RegistrationFormPopulator">
-        <property name="bCryptPasswordEncoder" ref="encoder"/>
+        <property name="BCryptPasswordEncoder" ref="encoder"/>
     </bean>
 
     <bean id="gameAdditionsFormPopulator" class="project.form.populator.GameAdditionsFormPopulator"/>
