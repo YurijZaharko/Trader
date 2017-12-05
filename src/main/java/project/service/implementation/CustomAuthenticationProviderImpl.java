@@ -27,7 +27,6 @@ public class CustomAuthenticationProviderImpl implements CustomAuthenticationPro
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String principal = authentication.getPrincipal() + "";
         String credential = authentication.getCredentials() + "";
-
         TraderUser user = traderUserService.findByUsername(principal);
 
         List<GrantedAuthority> grantedAuthorityList = getAuthorityList(user);
