@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import project.entity.TraderUser;
@@ -28,7 +29,7 @@ public class CustomAuthenticationProviderImpl implements CustomAuthenticationPro
         String principal = authentication.getPrincipal() + "";
         String credential = authentication.getCredentials() + "";
 
-        TraderUser user = traderUserService.findByUsername(principal);
+        TraderUser user = userExist(principal);
 
         List<GrantedAuthority> grantedAuthorityList = getAuthorityList(user);
         isAccountDisable(user);
@@ -37,22 +38,30 @@ public class CustomAuthenticationProviderImpl implements CustomAuthenticationPro
         return new UsernamePasswordAuthenticationToken(user, credential, grantedAuthorityList);
     }
 
-    private List<GrantedAuthority> getAuthorityList(TraderUser user){
+    private TraderUser userExist(String principal) {
+        TraderUser traderUser = traderUserService.findByUsername(principal);
+        if (traderUser == null) {
+            throw new UsernameNotFoundException("Username not exist");
+        }
+        return traderUser;
+    }
+
+    private List<GrantedAuthority> getAuthorityList(TraderUser user) {
         Role role = user.getRole();
         List<GrantedAuthority> grantedAuthorityList = new LinkedList<>();
         grantedAuthorityList.add(new SimpleGrantedAuthority(role.toString()));
         return grantedAuthorityList;
     }
 
-    private void isAccountDisable(TraderUser user){
-        if (!user.isAccountNonLocked()){
+    private void isAccountDisable(TraderUser user) {
+        if (!user.isAccountNonLocked()) {
             throw new LockedException("Account is locked");
         }
     }
 
-    private void isBadCredential(TraderUser user, String credential){
+    private void isBadCredential(TraderUser user, String credential) {
         String password = user.getPassword();
-        if (!encoder.matches(credential, password)){
+        if (!encoder.matches(credential, password)) {
             throw new BadCredentialsException("Bad Credential");
         }
     }
