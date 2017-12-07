@@ -53,6 +53,9 @@
     <orderEntry type="library" name="Spring Web Services-2.0.2" level="project" />
     <orderEntry type="library" name="Spring Webflow-2.4.0" level="project" />
     <orderEntry type="library" name="Hibernate 5.2.10-5.2.10" level="application" />
+    <orderEntry type="library" name="org.apiguardian:apiguardian-api:1.1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:slf4j-log4j12:1.7.25" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: log4j:log4j:1.2.17" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-jpamodelgen:5.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-validator:5.1.0.Final" level="project" />
@@ -133,5 +136,7 @@
     <orderEntry type="library" name="Maven: org.webjars:bootstrap:3.3.7" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:jquery:1.11.1" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:slf4j-log4j12:1.7.25" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: log4j:log4j:1.2.17" level="project" />
   </component>
 </module>

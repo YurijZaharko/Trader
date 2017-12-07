@@ -1,5 +1,6 @@
 package project.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import project.entity.enumtype.FolderName;
@@ -8,10 +9,11 @@ import java.io.File;
 
 @Configuration
 public class PathConfiguration {
+    private File userFilesDirectory;
+    private File homeDirectory;
 
     @Bean(name = "templateDirectory")
     public File getTemplateDirectory() {
-        File userFilesDirectory = getUserFilesDirectory();
         File template = new File(userFilesDirectory, String.valueOf(FolderName.TEXT_TEMPLATE));
         if (!template.exists()){
             template.mkdir();
@@ -27,8 +29,7 @@ public class PathConfiguration {
 
     @Bean(name = "userFilesDirectory")
     public File getUserFilesDirectory() {
-        File homePath = getHomeDirectory();
-        File userFolder = new File(homePath, String.valueOf(FolderName.USER_FILES));
+        File userFolder = new File(homeDirectory, String.valueOf(FolderName.USER_FILES));
         if (!userFolder.exists()) {
             userFolder.mkdir();
         }
@@ -37,11 +38,20 @@ public class PathConfiguration {
 
     @Bean
     public File getImageDirectory(){
-        File homeDirectory = getHomeDirectory();
         File imageDirectory = new File(homeDirectory, String.valueOf(FolderName.IMAGE));
         if (!imageDirectory.exists()){
             imageDirectory.mkdir();
         }
         return imageDirectory;
+    }
+
+    @Autowired
+    public void setUserFilesDirectory(File userFilesDirectory) {
+        this.userFilesDirectory = userFilesDirectory;
+    }
+
+    @Autowired
+    public void setHomeDirectory(File homeDirectory) {
+        this.homeDirectory = homeDirectory;
     }
 }

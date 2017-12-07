@@ -1,6 +1,6 @@
 package project.service.implementation;
 
-import org.springframework.mail.MailException;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Async;
@@ -8,16 +8,14 @@ import project.service.MailService;
 
 
 public class CustomMailSenderImpl implements MailService {
-
     private MailSender mailSender;
-
-    private SimpleMailMessage template;
+    private SimpleMailMessage simpleMailMessage;
 
     @Override
     public void sendEmail(String[] to, String[] cc, String subject, String text) {
-        SimpleMailMessage simpleMailMessage = init( subject, text);
+        SimpleMailMessage simpleMailMessage = init(subject, text);
         simpleMailMessage.setTo(to);
-        if (cc != null){
+        if (cc != null) {
             simpleMailMessage.setCc(cc);
         }
         send(simpleMailMessage);
@@ -31,17 +29,17 @@ public class CustomMailSenderImpl implements MailService {
         send(simpleMailMessage);
     }
 
-    private SimpleMailMessage init(String subject, String text){
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage(this.template);
+    private SimpleMailMessage init(String subject, String text) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage(this.simpleMailMessage);
         simpleMailMessage.setSubject(subject);
         simpleMailMessage.setText(text);
         return simpleMailMessage;
     }
 
-    private void send(SimpleMailMessage simpleMailMessage){
+    private void send(SimpleMailMessage simpleMailMessage) {
         try {
             mailSender.send(simpleMailMessage);
-        }catch (MailException e){
+        } catch (MailSendException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -52,6 +50,6 @@ public class CustomMailSenderImpl implements MailService {
     }
 
     public void setSimpleMailMessage(SimpleMailMessage template) {
-        this.template = template;
+        this.simpleMailMessage = template;
     }
 }

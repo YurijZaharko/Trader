@@ -41,8 +41,7 @@ public class HelpServiceImpl implements HelpService {
 
     @Override
     public TextForm showFile(String fileName, TextForm textForm) {
-
-        String text = null;
+        String text = "";
         try {
             String extension = ".txt";
             text = stringFileReader.readFromFile(templateDirectory, fileName + extension);

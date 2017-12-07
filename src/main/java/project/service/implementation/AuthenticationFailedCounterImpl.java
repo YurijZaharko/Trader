@@ -20,7 +20,7 @@ public class AuthenticationFailedCounterImpl implements AuthenticationFailedCoun
         TraderUser tradeUser = traderUserService.findByUsername(userName);
         int failAttempts = tradeUser.getFailAttempts();
         if (userFailAgain(tradeUser)) {
-            if (failAttempts >= MAX_NUMBER_OF_LOGIN_FAILS) {
+            if (overLimitFails(failAttempts)) {
                 tradeUser.setAccountNonLocked(false);
             } else {
                 tradeUser.setFailAttempts(++failAttempts);
@@ -29,6 +29,10 @@ public class AuthenticationFailedCounterImpl implements AuthenticationFailedCoun
            setFirstFailLogin(tradeUser);
         }
         traderUserRepository.save(tradeUser);
+    }
+
+    private boolean overLimitFails(int failAttempts){
+        return failAttempts >= MAX_NUMBER_OF_LOGIN_FAILS;
     }
 
     private void setFirstFailLogin(TraderUser traderUser){
