@@ -38,7 +38,7 @@ public class CustomAuthenticationProviderImpl implements CustomAuthenticationPro
         return new UsernamePasswordAuthenticationToken(user, credential, grantedAuthorityList);
     }
 
-    private TraderUser userExist(String principal) {
+    private TraderUser userExist(String principal) throws UsernameNotFoundException {
         TraderUser traderUser = traderUserService.findByUsername(principal);
         if (traderUser == null) {
             throw new UsernameNotFoundException("Username not exist");
