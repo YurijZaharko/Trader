@@ -12,6 +12,7 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.method.annotation.CsrfTokenArgumentResolver;
 import project.entity.TraderUser;
@@ -29,7 +30,6 @@ public class CustomAuthenticationProviderImplTest {
     private final String principalExpected = "Login";
     private final String credentialsExpected = "myPassword";
     private final Role roleExpected = Role.ROLE_REGISTERED_USER;
-    private final int sizeExpected = 1;
 
     @Mock
     private TraderUserService traderUserService;
@@ -46,7 +46,6 @@ public class CustomAuthenticationProviderImplTest {
     public void setUp() throws Exception {
         when(authentication.getPrincipal()).thenReturn(principalExpected);
         when(authentication.getCredentials()).thenReturn(credentialsExpected);
-        when(traderUserService.findByUsername(principalExpected)).thenReturn(traderUser);
         when(traderUser.getRole()).thenReturn(roleExpected);
         when(traderUser.getUsername()).thenReturn(principalExpected);
         when(traderUser.getPassword()).thenReturn(credentialsExpected);
@@ -55,6 +54,7 @@ public class CustomAuthenticationProviderImplTest {
     @Test
     public void authenticateSuccessful() throws Exception {
         //given
+        when(traderUserService.findByUsername(principalExpected)).thenReturn(traderUser);
         when(traderUser.isAccountNonLocked()).thenReturn(true);
         when(encoder.matches(anyString(), anyString())).thenReturn(true);
         //when
@@ -68,6 +68,7 @@ public class CustomAuthenticationProviderImplTest {
 
         assertEquals(principalExpected, principalActual);
         assertEquals(credentialsExpected, credentialsActual);
+        int sizeExpected = 1;
         assertEquals(sizeExpected, sizeActual);
         String roleActual = "";
         for (GrantedAuthority grantedAuthority : authoritiesActual) {
@@ -77,9 +78,19 @@ public class CustomAuthenticationProviderImplTest {
 
     }
 
+    @Test(expected = UsernameNotFoundException.class)
+    public void userNotExist() throws Exception {
+        //given
+        when(traderUserService.findByUsername(principalExpected)).thenReturn(null);
+        //when
+        unit.authenticate(authentication);
+        //then
+    }
+
     @Test(expected = LockedException.class)
     public void authenticateAccountLock() throws Exception {
         //given
+        when(traderUserService.findByUsername(principalExpected)).thenReturn(traderUser);
         when(traderUser.isAccountNonLocked()).thenReturn(false);
         //when
         unit.authenticate(authentication);
@@ -89,6 +100,7 @@ public class CustomAuthenticationProviderImplTest {
     @Test(expected = BadCredentialsException.class)
     public void authenticateBadCredential() throws Exception {
         //given
+        when(traderUserService.findByUsername(principalExpected)).thenReturn(traderUser);
         when(traderUser.isAccountNonLocked()).thenReturn(true);
         when(encoder.matches(anyString(), anyString())).thenReturn(false);
         //when
