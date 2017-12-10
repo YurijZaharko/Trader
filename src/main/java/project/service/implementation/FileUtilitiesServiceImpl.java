@@ -3,7 +3,7 @@ package project.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.form.TextForm;
-import project.service.HelpService;
+import project.service.FileUtilitiesService;
 import project.service.StringFileReader;
 import project.service.StringFileWriter;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class HelpServiceImpl implements HelpService {
+public class FileUtilitiesServiceImpl implements FileUtilitiesService {
     private StringFileWriter stringFileWriter;
     private StringFileReader stringFileReader;
     private File templateDirectory;
@@ -40,18 +40,24 @@ public class HelpServiceImpl implements HelpService {
     }
 
     @Override
-    public TextForm showFile(String fileName, TextForm textForm) {
-        String text = "";
+    public TextForm showFile(String fileName) {
+        String text;
         try {
-            String extension = ".txt";
-            text = stringFileReader.readFromFile(templateDirectory, fileName + extension);
+            text = readFromFile(fileName);
         } catch (IOException e) {
+            text = "";
             e.printStackTrace();
         }
 
+        TextForm textForm = new TextForm();
         textForm.setTemplateName(fileName);
         textForm.setMainText(text);
         return textForm;
+    }
+
+    private String readFromFile(String fileName) throws IOException {
+        String fileNameWithExtension = fileName + ".txt";
+        return stringFileReader.readFromFile(templateDirectory, fileNameWithExtension);
     }
 
     @Autowired

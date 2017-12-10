@@ -5,11 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.form.TextForm;
-import project.service.HelpService;
+import project.service.FileUtilitiesService;
 
 @Controller
 public class AdminController {
-    private HelpService helpService;
+    private FileUtilitiesService FileUtilitiesService;
 
     @ModelAttribute("textForm")
     public TextForm getTextForm() {
@@ -23,27 +23,26 @@ public class AdminController {
 
     @GetMapping(value = "admin/help/faq")
     public String getFaq(Model model) {
-        model.addAttribute("listFiles", helpService.getListOfTemplate());
+        model.addAttribute("listFiles", FileUtilitiesService.getListOfTemplate());
         return "faq";
     }
 
     @GetMapping(value = "/admin/showFile/{fileName}")
     public String showFile(Model model,
-                           @ModelAttribute(value = "textForm") TextForm textForm,
                            @PathVariable("fileName") String fileName) {
-        model.addAttribute("textForm", helpService.showFile(fileName, textForm));
-        model.addAttribute("listFiles", helpService.getListOfTemplate());
+        model.addAttribute("textForm", FileUtilitiesService.showFile(fileName));
+        model.addAttribute("listFiles", FileUtilitiesService.getListOfTemplate());
         return "faq";
     }
 
     @RequestMapping(value = "/admin/faq/save", method = RequestMethod.POST)
     public String saveTemplate(@ModelAttribute(value = "textForm") TextForm textForm) {
-        helpService.saveTextFormToFile(textForm);
+        FileUtilitiesService.saveTextFormToFile(textForm);
         return "redirect:admin/help/faq";
     }
 
     @Autowired
-    public void setHelpService(HelpService helpService) {
-        this.helpService = helpService;
+    public void setFileUtilitiesService(FileUtilitiesService fileUtilitiesService) {
+        this.FileUtilitiesService = fileUtilitiesService;
     }
 }
