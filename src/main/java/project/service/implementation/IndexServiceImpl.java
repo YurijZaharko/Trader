@@ -7,6 +7,7 @@ import project.form.IndexForm;
 import project.service.GameTypeService;
 import project.service.IndexService;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,9 +15,11 @@ import java.util.List;
 public class IndexServiceImpl implements IndexService {
     private GameTypeService gameTypeService;
 
+
     @Override
     public List<GameType> find(IndexForm indexForm) {
-        return null;
+        // TODO: complete method public List<GameType> find(IndexForm indexForm);
+        return Collections.emptyList();
     }
 
     @Override
@@ -26,8 +29,8 @@ public class IndexServiceImpl implements IndexService {
     }
 
     private List<GameType> prepareToFront(List<GameType> gameTypeListFetchAll) {
-        int quantityOFColumn = 4;
-        int listSize = gameTypeListFetchAll.size();
+        final int quantityOFColumn = 4;
+        final int listSize = gameTypeListFetchAll.size();
         List<GameType> resultList = warmUp(listSize);
 
         int count = 0;
