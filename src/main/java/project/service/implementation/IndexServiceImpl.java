@@ -21,7 +21,7 @@ public class IndexServiceImpl implements IndexService {
         // TODO: complete method public List<GameType> find(IndexForm indexForm);
         return Collections.emptyList();
     }
-
+    
     @Override
     public List<GameType> findAll() {
         List<GameType> gameTypeListFetchAll = gameTypeService.findAllFetchAll();

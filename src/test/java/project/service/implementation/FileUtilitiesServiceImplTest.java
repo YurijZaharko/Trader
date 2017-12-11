@@ -106,6 +106,7 @@ public class FileUtilitiesServiceImplTest {
         //when
         TextForm textForm = unit.showFile(templateNameExpected);
         //then
+
         Assert.assertNotNull(textForm);
         String templateNameActual = textForm.getTemplateName();
         String mainTextActual = textForm.getMainText();
