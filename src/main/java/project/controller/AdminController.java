@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import project.form.TextForm;
 import project.service.FileUtilitiesService;
 
+import java.io.IOException;
+
 @Controller
 public class AdminController {
-    private FileUtilitiesService FileUtilitiesService;
+    private FileUtilitiesService fileUtilitiesService;
 
     @ModelAttribute("textForm")
     public TextForm getTextForm() {
@@ -23,26 +25,30 @@ public class AdminController {
 
     @GetMapping(value = "admin/help/faq")
     public String getFaq(Model model) {
-        model.addAttribute("listFiles", FileUtilitiesService.getListOfTemplate());
+        model.addAttribute("listFiles", fileUtilitiesService.getListOfTemplate());
         return "faq";
     }
 
     @GetMapping(value = "/admin/showFile/{fileName}")
     public String showFile(Model model,
                            @PathVariable("fileName") String fileName) {
-        model.addAttribute("textForm", FileUtilitiesService.showFile(fileName));
-        model.addAttribute("listFiles", FileUtilitiesService.getListOfTemplate());
+        model.addAttribute("textForm", fileUtilitiesService.showFile(fileName));
+        model.addAttribute("listFiles", fileUtilitiesService.getListOfTemplate());
         return "faq";
     }
 
     @RequestMapping(value = "/admin/faq/save", method = RequestMethod.POST)
     public String saveTemplate(@ModelAttribute(value = "textForm") TextForm textForm) {
-        FileUtilitiesService.saveTextFormToFile(textForm);
+        try {
+            fileUtilitiesService.saveTextFormToFile(textForm);
+        } catch (IOException e) {
+            //TODO: add custom exception
+        }
         return "redirect:admin/help/faq";
     }
 
     @Autowired
     public void setFileUtilitiesService(FileUtilitiesService fileUtilitiesService) {
-        this.FileUtilitiesService = fileUtilitiesService;
+        this.fileUtilitiesService = fileUtilitiesService;
     }
 }
