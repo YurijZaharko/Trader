@@ -19,7 +19,7 @@ public class FileUtilitiesServiceImpl implements FileUtilitiesService {
     private File templateDirectory;
 
     @Override
-    public void saveTextFormToFile(TextForm textForm) {
+    public void saveTextFormToFile(TextForm textForm) throws IOException {
         String templateName = textForm.getTemplateName();
         String mainText = textForm.getMainText();
         stringFileWriter.writeFile(templateName, mainText);
@@ -46,7 +46,7 @@ public class FileUtilitiesServiceImpl implements FileUtilitiesService {
             text = readFromFile(fileName);
         } catch (IOException e) {
             text = "";
-            e.printStackTrace();
+            //TODO: add loger
         }
 
         TextForm textForm = new TextForm();

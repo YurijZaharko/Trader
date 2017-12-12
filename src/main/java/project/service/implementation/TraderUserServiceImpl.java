@@ -115,6 +115,7 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
             content = stringFileReader.readFromFile(templateDirectory, templateName + extension);
         } catch (IOException e) {
             e.printStackTrace();
+            content = "";
         }
         return content;
     }
