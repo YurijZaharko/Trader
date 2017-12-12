@@ -11,9 +11,9 @@ import java.nio.file.Files;
 @Service
 public class StringFileReaderImpl implements StringFileReader {
     @Override
-    public String readFromFile(File path, String filename) throws IOException {
-        File file = new File(path, filename);
+    public String readFromFile(File path, String fileName) throws IOException {
+        File file = new File(path, fileName);
         byte [] bytes = Files.readAllBytes(file.toPath());
-        return new String(bytes, Charset.defaultCharset());
+        return new String(bytes, Charset.forName("UTF-8"));
     }
 }
