@@ -42,9 +42,10 @@ public class AdminController {
         try {
             fileUtilitiesService.saveTextFormToFile(textForm);
         } catch (IOException e) {
-            //TODO: add custom exception
+            //TODO: add custom exception and redirect on error page
+
         }
-        return "redirect:admin/help/faq";
+        return "redirect:/admin/help/faq";
     }
 
     @Autowired
