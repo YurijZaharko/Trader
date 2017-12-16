@@ -6,12 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import project.form.IndexForm;
-import project.service.GameTypeService;
 import project.service.IndexService;
 
 @Controller
 public class IndexController {
-    private GameTypeService gameTypeService;
     private IndexService indexService;
 
     @ModelAttribute("findIndexForm")
@@ -25,7 +23,7 @@ public class IndexController {
         return "main";
     }
 
-    @GetMapping(value = "/", params = "find")
+    @GetMapping(value = "/find", params = "find")
     public String getSearchResult(@ModelAttribute("findIndexForm") IndexForm indexForm){
         indexService.find(indexForm);
         return "main";
@@ -36,8 +34,4 @@ public class IndexController {
         this.indexService = indexService;
     }
 
-    @Autowired
-    public void setGameTypeService(GameTypeService gameTypeService) {
-        this.gameTypeService = gameTypeService;
-    }
 }
