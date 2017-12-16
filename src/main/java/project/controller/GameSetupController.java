@@ -62,7 +62,7 @@ public class GameSetupController {
         return "redirect:/admin/setup";
     }
 
-    @GetMapping("admin/game/edit/{id}")
+    @GetMapping("/admin/game/edit/{id}")
     public String editGame(@PathVariable("id") Long id, Model model, @PageableDefault Pageable pageable) {
         model.addAttribute("gameTypeForm", gameTypeService.findForForm(id));
         addModel(model, pageable);
@@ -81,7 +81,7 @@ public class GameSetupController {
         return SETUP_ADDITIONS;
     }
 
-    @PostMapping(value = "admin/gameAdditions/save")
+    @PostMapping(value = "/admin/gameAdditions/save")
     public String saveAdditions(@ModelAttribute("gameAdditionsForm") GameAdditionsForm gameAdditionsForm){
         gameAdditionsService.save(gameAdditionsForm);
         return "redirect:/admin/setupAdditions";
@@ -123,9 +123,6 @@ public class GameSetupController {
         return "redirect:/admin/setupCountries";
     }
 
-    /**
-     * Populate model for getSetup
-     **/
     private void addModel(Model model, Pageable pageable) {
         model.addAttribute(COUNTRIES, countryService.findAll());
         model.addAttribute("gameAdditionsList", gameAdditionsService.findAll());
