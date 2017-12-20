@@ -54,4 +54,13 @@ public class TemplateLink {
     public int hashCode() {
         return linkName != null ? linkName.hashCode() : 0;
     }
+
+    @Override
+    public String toString() {
+        return "TemplateLink{" +
+                "id=" + id +
+                ", linkName='" + linkName + '\'' +
+                ", templateName='" + templateName + '\'' +
+                '}';
+    }
 }

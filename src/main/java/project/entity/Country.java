@@ -14,6 +14,7 @@ public class Country {
     @JoinColumn(name = "fk_GameType"), inverseJoinColumns =
     @JoinColumn(name = "fk_Country"))
     private Set<GameType> gameTypes;
+
     private String shortName;
     private String fullName;
 
@@ -68,5 +69,15 @@ public class Country {
         int result = shortName.hashCode();
         result = 31 * result + fullName.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "id=" + id +
+                ", gameTypes=" + gameTypes +
+                ", shortName='" + shortName + '\'' +
+                ", fullName='" + fullName + '\'' +
+                '}';
     }
 }

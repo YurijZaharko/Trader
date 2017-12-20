@@ -80,4 +80,14 @@ public class GameType {
     public int hashCode() {
         return gameName.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "GameType{" +
+                "id=" + id +
+                ", countries=" + countries +
+                ", gameAdditions=" + gameAdditions +
+                ", gameName='" + gameName + '\'' +
+                '}';
+    }
 }

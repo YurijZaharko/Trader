@@ -157,4 +157,14 @@ public class TraderUser implements UserDetails {
     public int hashCode() {
         return username.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "TraderUser{" +
+                "id=" + id +
+                ", role=" + role +
+                ", username='" + username + '\'' +
+                ", nickName='" + nickName + '\'' +
+                '}';
+    }
 }

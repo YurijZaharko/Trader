@@ -57,4 +57,13 @@ public class GameAdditions {
     public int hashCode() {
         return gameAdditionsName.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "GameAdditions{" +
+                "id=" + id +
+                ", gameTypes=" + gameTypes +
+                ", gameAdditionsName='" + gameAdditionsName + '\'' +
+                '}';
+    }
 }

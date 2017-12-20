@@ -51,4 +51,27 @@ public class VerificationToken implements Serializable {
     public void setVerificationKey(String verificationKey) {
         this.verificationKey = verificationKey;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof VerificationToken)) return false;
+
+        VerificationToken that = (VerificationToken) o;
+
+        return traderUser != null ? traderUser.equals(that.traderUser) : that.traderUser == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return traderUser != null ? traderUser.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "VerificationToken{" +
+                "id=" + id +
+                ", traderUser=" + traderUser +
+                '}';
+    }
 }
