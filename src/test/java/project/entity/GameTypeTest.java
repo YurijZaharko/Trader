@@ -10,7 +10,7 @@ import org.meanbean.test.ConfigurationBuilder;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GameAdditionsTest {
+public class GameTypeTest {
     private Configuration configuration;
     private BeanTester beanTester;
 
@@ -24,21 +24,21 @@ public class GameAdditionsTest {
     }
 
     @Test
-    public void gettersAndSettersCorrectness() {
-        beanTester.testBean(GameAdditions.class, configuration);
+    public void gettersAndSettersCorrectness(){
+        beanTester.testBean(GameType.class, configuration);
     }
 
     @Test
-    public void equalsAndHashCorrectness() {
+    public void equalsAndHashCorrectness(){
         String sameName = "testName";
 
-        GameAdditions gameAdditionBlack = new GameAdditions();
-        gameAdditionBlack.setGameAdditionsName(sameName);
+        GameType gameTypeBlack = new GameType();
+        gameTypeBlack.setGameName(sameName);
 
-        GameAdditions gameAdditionsRed = new GameAdditions();
-        gameAdditionsRed.setGameAdditionsName(sameName);
+        GameType gameTypeRed = new GameType();
+        gameTypeRed.setGameName(sameName);
 
-        Assert.assertTrue(gameAdditionBlack.equals(gameAdditionsRed));
-        Assert.assertTrue(gameAdditionBlack.hashCode() == gameAdditionsRed.hashCode());
+        Assert.assertTrue(gameTypeBlack.equals(gameTypeRed));
+        Assert.assertTrue(gameTypeBlack.hashCode() == gameTypeRed.hashCode());
     }
 }

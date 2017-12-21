@@ -10,22 +10,24 @@ import org.meanbean.test.ConfigurationBuilder;
 
 public class CountryTest {
     private Configuration configuration;
+    private BeanTester beanTester;
 
     @Before
     public void setUp() throws Exception {
         this.configuration = new ConfigurationBuilder()
                 .iterations(10)
                 .build();
-        }
+
+        this.beanTester = new BeanTester();
+    }
 
     @Test
-    public void getterAndSetterCorrectness() throws Exception{
-        BeanTester beanTester = new BeanTester();
+    public void getterAndSetterCorrectness() throws Exception {
         beanTester.testBean(Country.class, configuration);
     }
 
     @Test
-    public void equalsAndHashCorrectness(){
+    public void equalsAndHashCorrectness() {
         String sameShortName = "UA";
         String sameFullName = "Ukraine";
 
