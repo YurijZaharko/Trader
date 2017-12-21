@@ -25,17 +25,20 @@ public class CountryTest {
     }
 
     @Test
-    public void equalsContract(){
-        Country countryFirst = new Country();
-        countryFirst.setShortName("UA");
-        countryFirst.setFullName("Ukraine");
+    public void equalsAndHashCorrectness(){
+        String sameShortName = "UA";
+        String sameFullName = "Ukraine";
 
-        Country countrySecond = new Country();
-        countrySecond.setShortName("UA");
-        countrySecond.setFullName("Ukraine");
+        Country countryBlack = new Country();
+        countryBlack.setShortName(sameShortName);
+        countryBlack.setFullName(sameFullName);
 
-        Assert.assertTrue(countryFirst.equals(countrySecond));
-        Assert.assertTrue(countryFirst.hashCode() == countrySecond.hashCode());
+        Country countryRed = new Country();
+        countryRed.setShortName(sameShortName);
+        countryRed.setFullName(sameFullName);
+
+        Assert.assertTrue(countryBlack.equals(countryRed));
+        Assert.assertTrue(countryBlack.hashCode() == countryRed.hashCode());
     }
 
 }
