@@ -26,6 +26,7 @@ public class GameAdditionsTest {
         beanTester.testBean(GameAdditions.class, configuration);
     }
 
+    @Test
     public void equalsAndHashCorrectness(){
         String sameName = "testName";
 
