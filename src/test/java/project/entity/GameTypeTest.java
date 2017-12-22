@@ -2,8 +2,9 @@ package project.entity;
 
 import org.junit.Assert;
 import org.junit.Test;
+import project.configuration.MeanBeanConfiguration;
 
-public class GameTypeTest extends MeanBeanConfiguration{
+public class GameTypeTest extends MeanBeanConfiguration {
 
     @Test
     public void gettersAndSettersCorrectness(){

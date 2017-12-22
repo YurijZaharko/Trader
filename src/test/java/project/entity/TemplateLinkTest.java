@@ -3,9 +3,10 @@ package project.entity;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import project.configuration.MeanBeanConfiguration;
 
 
-public class TemplateLinkTest extends MeanBeanConfiguration{
+public class TemplateLinkTest extends MeanBeanConfiguration {
 
     @Before
     public void setUp() throws Exception {

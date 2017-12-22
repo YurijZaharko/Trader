@@ -2,9 +2,10 @@ package project.entity;
 
 import org.junit.Assert;
 import org.junit.Test;
+import project.configuration.MeanBeanConfiguration;
 
 
-public class CountryTest extends MeanBeanConfiguration{
+public class CountryTest extends MeanBeanConfiguration {
 
     @Test
     public void getterAndSetterCorrectness() throws Exception {

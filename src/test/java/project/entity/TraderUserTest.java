@@ -7,6 +7,7 @@ import org.meanbean.lang.Factory;
 import org.meanbean.test.ConfigurationBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import project.configuration.MeanBeanConfiguration;
 import project.entity.enumtype.Role;
 
 import java.util.Calendar;

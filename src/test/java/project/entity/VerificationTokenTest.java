@@ -8,11 +8,12 @@ import org.meanbean.lang.Factory;
 import org.meanbean.test.Configuration;
 import org.meanbean.test.ConfigurationBuilder;
 import org.mockito.junit.MockitoJUnitRunner;
+import project.configuration.MeanBeanConfiguration;
 
 import java.util.Calendar;
 
 @RunWith(MockitoJUnitRunner.class)
-public class VerificationTokenTest extends MeanBeanConfiguration{
+public class VerificationTokenTest extends MeanBeanConfiguration {
     private Configuration configuration;
 
     @Before
