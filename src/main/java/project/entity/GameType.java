@@ -20,6 +20,7 @@ public class GameType {
     @JoinColumn(name = "fk_GameAdditions"), inverseJoinColumns =
     @JoinColumn(name = "fk_GameType"))
     private Set<GameAdditions> gameAdditions;
+
     private String gameName;
     private String imageExtension;
 
