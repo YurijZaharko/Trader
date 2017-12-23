@@ -109,7 +109,7 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
         /* TODO: move method findHelpPage(String string) to separate class */
         TemplateLink templateLink = templateLinkRepository.findByLinkName(linkName);
         String templateName = templateLink.getTemplateName();
-        String content = null;
+        String content;
         String extension = ".txt";
         try {
             content = stringFileReader.readFromFile(templateDirectory, templateName + extension);
