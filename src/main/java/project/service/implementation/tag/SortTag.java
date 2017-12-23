@@ -29,18 +29,18 @@ public class SortTag extends SimpleTagSupport {
         PageContext pageContext = (PageContext) getJspContext();
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         Map<String, String[]> map = request.getParameterMap();
-        if(isParamValuePresent(map)){
+        if (isParamValuePresent(map)) {
             sw.append("<li class='active'><a href='");
-        }else{
+        } else {
             sw.append("<li><a href='");
         }
         sw.append(QUEST);
         sw.append(SORT);
         sw.append(EQUAL);
         sw.append(paramValue);
-        for(Map.Entry<String, String[]> entry : map.entrySet()){
-            for(String value : entry.getValue()){
-                if(!entry.getKey().equals(SORT)){
+        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+            for (String value : entry.getValue()) {
+                if (!entry.getKey().equals(SORT)) {
                     sw.append(AMPER);
                     sw.append(entry.getKey());
                     sw.append(EQUAL);
@@ -54,15 +54,15 @@ public class SortTag extends SimpleTagSupport {
         out.println(sw.toString());
     }
 
-    public boolean isParamValuePresent(Map<String, String[]> map){
+    public boolean isParamValuePresent(Map<String, String[]> map) {
         return map.entrySet().stream()
-                .filter(entry->entry.getKey().equals(SORT))
+                .filter(entry -> entry.getKey().equals(SORT))
                 .map(Map.Entry::getValue)
-                .flatMap((array)-> Arrays.stream(array))
-                .anyMatch((str)->str.equals(paramValue));
+                .flatMap((array) -> Arrays.stream(array))
+                .anyMatch((str) -> str.equals(paramValue));
     }
 
-    public void setParamValue(String paramValue){
+    public void setParamValue(String paramValue) {
         this.paramValue = paramValue;
     }
 

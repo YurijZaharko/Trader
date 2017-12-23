@@ -16,7 +16,7 @@ import static java.lang.String.valueOf;
 /**
  * Created by SCIP on 12.09.2016.
  */
-public class PageableTag extends SimpleTagSupport{
+public class PageableTag extends SimpleTagSupport {
 
     private final static int FIRST = 1;
     private final static int VISIBLE = 5;
@@ -36,7 +36,6 @@ public class PageableTag extends SimpleTagSupport{
     private String endContainer = "</tr>";
     private String stCell = "<td>";
     private String endCell = "</td>";
-    private String activeClass = "active";
 
     @Override
     public void doTag() throws JspException, IOException {
@@ -44,13 +43,13 @@ public class PageableTag extends SimpleTagSupport{
         sw.append(stContainer);
         buildFirstPage();
         buildLeftArrow();
-        if(last<=VISIBLE){
+        if (last <= VISIBLE) {
             for (int i = 1; i <= last; i++) {
                 buildOneCell(i);
             }
-        }else{
-            int start = (current-VISIBLE/2) >= FIRST ? (current-VISIBLE/2) : FIRST;
-            int finish = (current+VISIBLE/2) <= last ? (current+VISIBLE/2) : last;
+        } else {
+            int start = (current - VISIBLE / 2) >= FIRST ? (current - VISIBLE / 2) : FIRST;
+            int finish = (current + VISIBLE / 2) <= last ? (current + VISIBLE / 2) : last;
             start = (finish - start < VISIBLE) ? (finish - VISIBLE + 1) : start;
             start = start <= 0 ? FIRST : start;
             finish = (finish - start) < VISIBLE ? start + VISIBLE - 1 : finish;
@@ -65,7 +64,7 @@ public class PageableTag extends SimpleTagSupport{
         out.println(sw.toString());
     }
 
-    private void buildLastPage(){
+    private void buildLastPage() {
         sw.append(stCell);
         sw.append("<a href='");
         sw.append(QUEST);
@@ -81,7 +80,7 @@ public class PageableTag extends SimpleTagSupport{
         sw.append(endCell);
     }
 
-    private void buildFirstPage(){
+    private void buildFirstPage() {
         sw.append(stCell);
         sw.append("<a href='");
         sw.append(QUEST);
@@ -97,13 +96,13 @@ public class PageableTag extends SimpleTagSupport{
         sw.append(endCell);
     }
 
-    private void buildRightArrow(){
+    private void buildRightArrow() {
         sw.append(stCell);
         sw.append("<a href='");
         sw.append(QUEST);
         sw.append("page=");
-        if(current == last) sw.append(valueOf(current));
-        else sw.append(valueOf(current+1));
+        if (current == last) sw.append(valueOf(current));
+        else sw.append(valueOf(current + 1));
         sw.append(AMPER);
         sw.append("size=");
         sw.append(valueOf(size));
@@ -114,13 +113,13 @@ public class PageableTag extends SimpleTagSupport{
         sw.append(endCell);
     }
 
-    private void buildLeftArrow(){
+    private void buildLeftArrow() {
         sw.append(stCell);
         sw.append("<a href='");
         sw.append(QUEST);
         sw.append("page=");
-        if(current == FIRST) sw.append(valueOf(current));
-        else sw.append(valueOf(current-1));
+        if (current == FIRST) sw.append(valueOf(current));
+        else sw.append(valueOf(current - 1));
         sw.append(AMPER);
         sw.append("size=");
         sw.append(valueOf(size));
@@ -131,13 +130,13 @@ public class PageableTag extends SimpleTagSupport{
         sw.append(endCell);
     }
 
-    private void buildOneCell(int number){
-        if(number == current){
-            sw.append(stCell.substring(0, stCell.length()-1));
+    private void buildOneCell(int number) {
+        if (number == current) {
+            sw.append(stCell.substring(0, stCell.length() - 1));
             sw.append(" class='");
-            sw.append(activeClass);
+            sw.append("active");
             sw.append("'>");
-        }else{
+        } else {
             sw.append(stCell);
         }
         sw.append("<a href='");
@@ -154,13 +153,13 @@ public class PageableTag extends SimpleTagSupport{
         sw.append(endCell);
     }
 
-    private void addAllParameters(){
+    private void addAllParameters() {
         PageContext pageContext = (PageContext) getJspContext();
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         Map<String, String[]> map = request.getParameterMap();
-        for(Map.Entry<String, String[]> entry : map.entrySet()){
-            for(String value : entry.getValue()){
-                if(!(entry.getKey().equals("page")||entry.getKey().equals("size"))){
+        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+            for (String value : entry.getValue()) {
+                if (!(entry.getKey().equals("page") || entry.getKey().equals("size"))) {
                     sw.append(AMPER);
                     sw.append(entry.getKey());
                     sw.append(EQUAL);
@@ -172,18 +171,22 @@ public class PageableTag extends SimpleTagSupport{
 
     public void setPage(Page<?> page) {
         last = page.getTotalPages();
-        current = page.getNumber()+1;
+        current = page.getNumber() + 1;
         size = page.getSize();
     }
+
     /**
-     * <ul class=pagination></ul>*/
-    public void setContainer(String container){
+     * <ul class=pagination></ul>
+     */
+    public void setContainer(String container) {
         stContainer = container.substring(0, container.indexOf("<", 1));
         endContainer = container.substring(container.indexOf("<", 1));
     }
+
     /**
-     * <li></li>*/
-    public void setCell(String cell){
+     * <li></li>
+     */
+    public void setCell(String cell) {
         stCell = cell.substring(0, cell.indexOf("<", 1));
         endCell = cell.substring(cell.indexOf("<", 1));
     }

@@ -26,9 +26,9 @@ public class HiddenInputs extends SimpleTagSupport {
         PageContext pageContext = (PageContext) getJspContext();
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         Map<String, String[]> map = request.getParameterMap();
-        for(Map.Entry<String, String[]> entry : map.entrySet()){
-            if(!excludes.contains(entry.getKey())){
-                for(String value : entry.getValue()){
+        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+            if (!excludes.contains(entry.getKey())) {
+                for (String value : entry.getValue()) {
                     sw.append("<input type='hidden' ");
                     sw.append("name='");
                     sw.append(entry.getKey());
@@ -41,9 +41,9 @@ public class HiddenInputs extends SimpleTagSupport {
         out.println(sw.toString());
     }
 
-    public void setExcludeParams(String excludeParams){
+    public void setExcludeParams(String excludeParams) {
         StringTokenizer tokenizer = new StringTokenizer(excludeParams, ", ");
-        while(tokenizer.hasMoreTokens()){
+        while (tokenizer.hasMoreTokens()) {
             excludes.add(tokenizer.nextToken());
         }
     }

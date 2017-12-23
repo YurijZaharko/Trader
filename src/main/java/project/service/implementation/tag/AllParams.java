@@ -25,12 +25,12 @@ public class AllParams extends SimpleTagSupport {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         Map<String, String[]> map = request.getParameterMap();
         boolean isFirst = true;
-        for(Map.Entry<String, String[]> entry : map.entrySet()){
-            for(String value : entry.getValue()){
-                if(isFirst){
+        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+            for (String value : entry.getValue()) {
+                if (isFirst) {
                     sw.append(QUEST);
                     isFirst = false;
-                }else{
+                } else {
                     sw.append(AMPER);
                 }
                 sw.append(entry.getKey());
