@@ -1,5 +1,7 @@
 package project.service.implementation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -10,6 +12,7 @@ import project.service.MailService;
 public class CustomMailSenderImpl implements MailService {
     private MailSender mailSender;
     private SimpleMailMessage simpleMailMessage;
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomMailSenderImpl.class);
 
     @Override
     public void sendEmail(String[] to, String[] cc, String subject, String text) {
@@ -40,7 +43,7 @@ public class CustomMailSenderImpl implements MailService {
         try {
             mailSender.send(simpleMailMessage);
         } catch (MailSendException e) {
-            System.err.println(e.getMessage());
+            LOGGER.error("Could not send email" + e);
         }
     }
 

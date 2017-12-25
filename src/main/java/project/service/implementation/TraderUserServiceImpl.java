@@ -1,5 +1,7 @@
 package project.service.implementation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,6 +40,7 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
     private TemplateLinkRepository templateLinkRepository;
     private StringFileReader stringFileReader;
     private File templateDirectory;
+    private static final Logger LOGGER = LoggerFactory.getLogger(TraderUserServiceImpl.class);
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -114,7 +117,7 @@ public class TraderUserServiceImpl implements TraderUserService, UserDetailsServ
         try {
             content = stringFileReader.readFromFile(templateDirectory, templateName + extension);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Could not read: " + linkName, e);
             content = "";
         }
         return content;

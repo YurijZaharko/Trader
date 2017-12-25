@@ -1,5 +1,7 @@
 package project.service.implementation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.form.TextForm;
@@ -17,6 +19,7 @@ public class FileUtilitiesServiceImpl implements FileUtilitiesService {
     private StringFileWriter stringFileWriter;
     private StringFileReader stringFileReader;
     private File templateDirectory;
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUtilitiesServiceImpl.class);
 
     @Override
     public void saveTextFormToFile(TextForm textForm) throws IOException {
@@ -46,7 +49,7 @@ public class FileUtilitiesServiceImpl implements FileUtilitiesService {
             text = readFromFile(fileName);
         } catch (IOException e) {
             text = "";
-            //TODO: add loger
+            LOGGER.error("Could not read " + fileName, e);
         }
 
         TextForm textForm = new TextForm();

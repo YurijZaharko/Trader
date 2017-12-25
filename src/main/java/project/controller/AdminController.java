@@ -1,5 +1,7 @@
 package project.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import java.io.IOException;
 @Controller
 public class AdminController {
     private FileUtilitiesService fileUtilitiesService;
+    private static final Logger LOGGER  = LoggerFactory.getLogger(AdminController.class);
 
     @ModelAttribute("textForm")
     public TextForm getTextForm() {
@@ -42,6 +45,7 @@ public class AdminController {
         try {
             fileUtilitiesService.saveTextFormToFile(textForm);
         } catch (IOException e) {
+            LOGGER.error("Could not save template" + e);
             //TODO: add custom exception and redirect on error page
 
         }
