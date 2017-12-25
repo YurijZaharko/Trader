@@ -23,9 +23,9 @@ public class IndexController {
         return "main";
     }
 
-    @GetMapping(value = "/find", params = "find")
-    public String getSearchResult(@ModelAttribute("findIndexForm") IndexForm indexForm){
-        indexService.find(indexForm);
+    @GetMapping(value = "/search", params = "search")
+    public String getSearchResult(@ModelAttribute("findIndexForm") IndexForm indexForm, Model model){
+        model.addAttribute("listGames", indexService.find(indexForm));
         return "main";
     }
 

@@ -6,9 +6,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.entity.GameType;
 import project.form.GameTypeForm;
+import project.form.IndexForm;
 import project.form.populator.GameTypeFormPopulator;
 import project.repository.GameTypeRepository;
 import project.service.GameTypeService;
+import project.specification.GameTypeFilterAdapter;
 
 import java.util.List;
 
@@ -42,6 +44,12 @@ public class GameTypeServiceImpl implements GameTypeService {
     @Override
     public List<GameType> findAllFetchAll() {
         return gameTypeRepository.findAllFetchAll();
+    }
+
+    @Override
+    public List<GameType> findSearch(IndexForm indexForm) {
+        List<GameType> all = gameTypeRepository.findAll(new GameTypeFilterAdapter(indexForm));
+        return all;
     }
 
     @Autowired

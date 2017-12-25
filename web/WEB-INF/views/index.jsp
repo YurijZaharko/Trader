@@ -11,12 +11,12 @@
 
 <div class="container">
     <div class="row">
-        <form:form action="/find" method="get" modelAttribute="findIndexForm" cssClass="form-inline">
+        <form:form action="/search" method="get" modelAttribute="findIndexForm" cssClass="form-inline">
             <div class="form-group">
                 <label for="search" class="sr-only">Search</label>
                 <form:input path="search" class="form-control" id="search"/>
             </div>
-            <button type="submit" class="btn btn-default" value="find">Search</button>
+            <button type="submit" class="btn btn-default" value="search">Search</button>
         </form:form>
     </div>
     <div class="row">

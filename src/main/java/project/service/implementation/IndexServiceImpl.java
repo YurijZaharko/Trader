@@ -7,7 +7,6 @@ import project.form.IndexForm;
 import project.service.GameTypeService;
 import project.service.IndexService;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,8 +17,10 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public List<GameType> find(IndexForm indexForm) {
-        // TODO: complete method public List<GameType> find(IndexForm indexForm);
-        return Collections.emptyList();
+        Iterable<GameType> search = gameTypeService.findSearch(indexForm);
+        List<GameType> gameTypeList = new LinkedList<>();
+        search.forEach(gameTypeList::add);
+        return prepareToFront(gameTypeList);
     }
 
     @Override

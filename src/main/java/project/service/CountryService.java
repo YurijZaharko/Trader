@@ -10,8 +10,12 @@ import java.util.List;
 
 public interface CountryService {
     List<Country> findAll();
+
     Page<Country> findAll(Pageable pageable);
+
     void saveGameCountryForm(GameCountryForm gameCountryForm);
+
     GameCountryForm findForGameCountryForm(Long id);
+
     void deleteById(Long id);
 }
